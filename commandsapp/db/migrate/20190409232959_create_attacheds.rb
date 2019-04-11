@@ -3,7 +3,7 @@ class CreateAttacheds < ActiveRecord::Migration[5.2]
     create_table :attacheds do |t|
       t.string :name
       t.binary :content
-      t.reference :post
+      t.references :post
 
       t.timestamps
     end
