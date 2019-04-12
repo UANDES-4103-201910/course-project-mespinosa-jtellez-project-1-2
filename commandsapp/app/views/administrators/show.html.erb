@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Last access:</strong>
+  <%= @administrator.last_access %>
+</p>
+
+<p>
+  <strong>Superadmin:</strong>
+  <%= @administrator.superadmin %>
+</p>
+
+<p>
+  <strong>Geofence:</strong>
+  <%= @administrator.geofence %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @administrator.user %>
+</p>
+
+<%= link_to 'Edit', edit_administrator_path(@administrator) %> |
+<%= link_to 'Back', administrators_path %>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  creation_date: 2019-04-09 19:13:29
+  description: MyText
+  location: MyString
+  open: false
+  solved: false
+  user: 
+
+two:
+  title: MyString
+  creation_date: 2019-04-09 19:13:29
+  description: MyText
+  location: MyString
+  open: false
+  solved: false
+  user: 

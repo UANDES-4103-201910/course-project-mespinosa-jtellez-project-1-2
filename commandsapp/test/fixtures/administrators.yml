@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  last_access: 2019-04-09 19:04:52
+  superadmin: false
+  geofence: 
+  user: 
+
+two:
+  last_access: 2019-04-09 19:04:52
+  superadmin: false
+  geofence: 
+  user: 
