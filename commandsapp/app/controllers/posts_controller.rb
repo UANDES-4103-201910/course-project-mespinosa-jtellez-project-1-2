@@ -4,7 +4,9 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @posts = list_posts
+
+    
   end
 
   # GET /posts/1
@@ -24,7 +26,10 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+    post_params_new = post_params
+    user = User.where(email: post_params[:user]).first
+    post_params_new[:user] = user
+    @post = Post.new(post_params_new)
 
     respond_to do |format|
       if @post.save
@@ -61,6 +66,7 @@ class PostsController < ApplicationController
     end
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -70,5 +76,25 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       params.require(:post).permit(:title, :creation_date, :description, :location, :open, :solved, :user)
+    end
+
+    def post_comments
+      Comment.where(post: params[:id])
+    end
+
+    def post_votes
+      Vote.where(post: params[:id])
+    end
+
+    def list_posts
+      post_list = []
+      posts = Post.all
+      posts.each do |post|
+        post_info = post.attributes
+        post_info[:votes] = post_votes
+        post_info[:comments] = post_comments
+        post_list << post_info
+      end
+      post_list
     end
 end

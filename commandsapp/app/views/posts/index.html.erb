@@ -1,6 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Posts</h1>
+<div class="topnav">
+  <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="inputGroupSelect01">Filter</label>
+  </div>
+  <select class="custom-select" id="inputGroupSelect01">
+    <option selected>Filter by...</option>
+    <option value="1">Most Upvoted</option>
+    <option value="2">Most Downvoted</option>
+    <option value="3">Most Commented</option>
+  </select>
+</div>
+
+<h1>Newsfeed</h1>
 
 <table>
   <thead>
@@ -12,23 +31,26 @@
       <th>Open</th>
       <th>Solved</th>
       <th>User</th>
-      <th colspan="3"></th>
+      <th>Comments</th>
+      <th>Votes</th>
+      
     </tr>
   </thead>
 
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= post.title %></td>
-        <td><%= post.creation_date %></td>
-        <td><%= post.description %></td>
-        <td><%= post.location %></td>
-        <td><%= post.open %></td>
-        <td><%= post.solved %></td>
-        <td><%= post.user %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= post["title"] %></td>
+        <td><%= post["creation_date"] %></td>
+        <td><%= post["description"] %></td>
+        <td><%= post["location"] %></td>
+        <td><%= post["open"] %></td>
+        <td><%= post["solved"] %></td>
+        <td><%= User.find(post["user_id"]).email %></td>
+        <td><%= post["comments"] %></td>
+        <td><%= post["votes"] %></td>
+        
+        
       </tr>
     <% end %>
   </tbody>

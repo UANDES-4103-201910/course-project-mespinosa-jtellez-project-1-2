@@ -71,4 +71,5 @@ class AdministratorsController < ApplicationController
     def administrator_params
       params.require(:administrator).permit(:last_access, :superadmin, :geofence, :user)
     end
+
 end

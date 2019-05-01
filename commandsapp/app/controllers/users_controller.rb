@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
+  # DELETE /users/1 
   # DELETE /users/1.json
   def destroy
     @user.destroy
@@ -70,5 +70,13 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:email, :password, :name)
+    end
+
+    def user_posts
+      Post.where(user: User.find(params[:id]))
+    end
+
+    def user_comments
+      Comment.where(user: User.find(params[:id]))
     end
 end

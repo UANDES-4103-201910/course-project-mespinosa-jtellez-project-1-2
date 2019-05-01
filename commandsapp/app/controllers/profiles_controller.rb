@@ -71,4 +71,12 @@ class ProfilesController < ApplicationController
     def profile_params
       params.require(:profile).permit(:picture, :biography, :city, :country, :user)
     end
+
+    def profile_posts
+      Post.where(user: params[:user])
+    end
+
+    def profile_comments
+      Comment.where(user: params[:user])
+    end
 end
