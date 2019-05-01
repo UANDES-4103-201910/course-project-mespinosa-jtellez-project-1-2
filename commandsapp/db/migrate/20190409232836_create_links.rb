@@ -4,7 +4,7 @@ class CreateLinks < ActiveRecord::Migration[5.2]
       t.string :URL
       t.integer :start
       t.integer :end
-      t.reference :post
+      t.references :post
 
       t.timestamps
     end

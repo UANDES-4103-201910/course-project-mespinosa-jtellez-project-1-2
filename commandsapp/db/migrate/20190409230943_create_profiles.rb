@@ -5,7 +5,7 @@ class CreateProfiles < ActiveRecord::Migration[5.2]
       t.text :biography
       t.string :city
       t.string :country
-      t.reference :user
+      t.references :user
 
       t.timestamps
     end
