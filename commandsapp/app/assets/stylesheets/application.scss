@@ -13,3 +13,24 @@
  */
 
 @import "bootstrap";
+
+.navbar {
+	background-color: #b80000;
+	height: 70px;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+.navbar-brand {
+	font-size: 40px;
+	position: absolute;
+	align: center;
+	font-weight: bold;
+}
+
+.fa {
+	font-size: 25px;
+}
+
+.nav-link:active {
+	color: LightGrey;
+}
