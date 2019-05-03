@@ -18,6 +18,7 @@ class ProfilesController < ApplicationController
     profile_info[:user] = User.find(profile["user_id"])
     @profile = profile_info
 
+
   end
 
   # GET /profiles/new
