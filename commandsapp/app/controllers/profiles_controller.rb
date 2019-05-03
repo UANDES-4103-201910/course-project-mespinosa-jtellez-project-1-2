@@ -10,6 +10,14 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    profile = Profile.find(params[:id])
+    profile_info = profile.attributes
+    profile_info[:posts] = list_posts
+    profile_info[:comments] = list_comments
+    profile_info[:votes] = list_votes
+    @profile = profile_info
+
+
   end
 
   # GET /profiles/new
@@ -24,7 +32,10 @@ class ProfilesController < ApplicationController
   # POST /profiles
   # POST /profiles.json
   def create
-    @profile = Profile.new(profile_params)
+    profile = profile_params
+    user = User.where(email: profile_params[:user]).first
+    profile[:user] = user
+    @profile = Profile.new(profile)
 
     respond_to do |format|
       if @profile.save
@@ -73,10 +84,46 @@ class ProfilesController < ApplicationController
     end
 
     def profile_posts
-      Post.where(user: params[:user])
+      Post.where(user: User.where(id: Profile.find(params[:id])))
     end
 
     def profile_comments
-      Comment.where(user: params[:user])
+      Comment.where(user:User.where(id: Profile.find(params[:id])))
+    end
+
+    def profile_votes
+      Vote.where(user: User.where(id: Profile.find(params[:id])))
+    end
+
+    def list_posts
+      post_list = []
+      posts = profile_posts
+      posts.each do |post|
+        post_info = post.attributes
+        post_info[:votes] = profile_votes
+        post_info[:comments] = profile_comments
+        post_list << post_info
+      end
+      post_list
+    end
+
+    def list_comments
+      comment_list = []
+      posts = profile_comments
+      posts.each do |post|
+        comment_info = post.attributes
+        comment_list << comment_info
+      end
+      comment_list
+    end
+
+    def list_votes
+      vote_list = []
+      votes = profile_votes
+      votes.each do |post|
+        vote_info = post.attributes
+        vote_list << vote_info
+      end
+      vote_list
     end
 end
