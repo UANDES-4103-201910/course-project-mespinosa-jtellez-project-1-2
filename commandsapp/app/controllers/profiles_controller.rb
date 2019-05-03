@@ -15,8 +15,8 @@ class ProfilesController < ApplicationController
     profile_info[:posts] = list_posts
     profile_info[:comments] = list_comments
     profile_info[:votes] = list_votes
+    profile_info[:user] = User.find(profile["user_id"])
     @profile = profile_info
-
 
   end
 

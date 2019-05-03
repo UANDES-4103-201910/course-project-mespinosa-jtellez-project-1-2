@@ -22,7 +22,11 @@
 
 <p>
   <strong>User:</strong>
-  <%= @profile["user"] %>
+  <%= @profile[:user]["email"] %>
+</p>
+
+<p>
+  <strong>--------------------------------------------</strong>
 </p>
 
 <p>
@@ -64,6 +68,10 @@
 </table>
 
 <p>
+  <strong>--------------------------------------------</strong>
+</p>
+
+<p>
   <strong>User Comments:</strong>
 </p>
 
@@ -103,6 +111,10 @@
     <% end %>
   </tbody>
 </table>
+
+<p>
+  <strong>--------------------------------------------</strong>
+</p>
 
 <p>
   <strong>User Votes:</strong>
