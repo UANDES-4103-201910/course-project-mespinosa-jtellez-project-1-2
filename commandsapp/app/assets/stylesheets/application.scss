@@ -17,20 +17,60 @@
 .navbar {
 	background-color: #b80000;
 	height: 70px;
-	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
-
 .navbar-brand {
 	font-size: 40px;
-	position: absolute;
-	align: center;
-	font-weight: bold;
+}
+#nav-search{
+	border-radius: 12px;
+}
+#nav-search:hover {
+	color: #b80000;
 }
 
-.fa {
+#new-post-btn {
+	vertical-lignment: center
+}
+#new-post-icon {
+	font-size: 15px;
+	padding: 5px;
+}
+
+.fa, .fas {
 	font-size: 25px;
 }
+#vote {
+	color: DarkGrey;
+}
+#vote:hover, .fa-caret-up:hover {
+	color: Grey;
+}
 
-.nav-link:active {
-	color: LightGrey;
+body {
+	padding: 90px;
+}
+
+.input-group {
+	width: 250px;
+	horizontal-alignment: right;
+}
+
+.media {
+	padding: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+	border: 0.5px;
+	border-radius: 50px;
+	border-style: solid;
+	border-color: LightGrey;
+	margin: 5px;
+}
+.media:hover {
+	border-color: #b80000;
+}
+.post-title {
+	font-size: 25px;
+}
+.post-info {
+	color: Grey;
 }
