@@ -2,28 +2,158 @@
 
 <p>
   <strong>Picture:</strong>
-  <%= @profile.picture %>
+  <%= @profile["picture"] %>
 </p>
 
 <p>
   <strong>Biography:</strong>
-  <%= @profile.biography %>
+  <%= @profile["biography"] %>
 </p>
 
 <p>
   <strong>City:</strong>
-  <%= @profile.city %>
+  <%= @profile["city"] %>
 </p>
 
 <p>
   <strong>Country:</strong>
-  <%= @profile.country %>
+  <%= @profile["country"] %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @profile.user %>
+  <%= @profile[:user]["email"] %>
 </p>
+
+<p>
+  <strong>--------------------------------------------</strong>
+</p>
+
+<p>
+  <strong>User Posts:</strong>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Creation date</th>
+      <th>Description</th>
+      <th>Location</th>
+      <th>Open</th>
+      <th>Solved</th>
+      <th>User</th>
+      <th>Comments</th>
+      <th>Votes</th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @profile[:posts].each do |post| %>
+      <tr>
+        <td><%= post["title"] %></td>
+        <td><%= post["creation_date"] %></td>
+        <td><%= post["description"] %></td>
+        <td><%= post["location"] %></td>
+        <td><%= post["open"] %></td>
+        <td><%= post["solved"] %></td>
+        <td><%= post["comments"] %></td>
+        <td><%= post["votes"] %></td>
+        
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <strong>--------------------------------------------</strong>
+</p>
+
+<p>
+  <strong>User Comments:</strong>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Creation date</th>
+      <th>Description</th>
+      <th>Location</th>
+      <th>Open</th>
+      <th>Solved</th>
+      <th>User</th>
+      <th>Comments</th>
+      <th>Votes</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @profile[:comments].each do |comment| %>
+      <tr>
+        <td><%= comment.post["title"] %></td>
+        <td><%= comment.post["creation_date"] %></td>
+        <td><%= comment.post["description"] %></td>
+        <td><%= comment.post["location"] %></td>
+        <td><%= comment.post["open"] %></td>
+        <td><%= comment.post["solved"] %></td>
+        <td><%= comment.post["comments"] %></td>
+        <td><%= comment.post["votes"] %></td>
+      </tr>
+      <tr>
+        <p>
+          <strong>Comment:</strong>
+          <%= comment.content %>
+        </p>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <strong>--------------------------------------------</strong>
+</p>
+
+<p>
+  <strong>User Votes:</strong>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Creation date</th>
+      <th>Description</th>
+      <th>Location</th>
+      <th>Open</th>
+      <th>Solved</th>
+      <th>User</th>
+      <th>Comments</th>
+      <th>Votes</th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @profile[:votes].each do |vote| %>
+      <p>
+        <strong>User Voted this post:</strong>
+      </p>
+      <tr>
+        <td><%= vote.post["title"] %></td>
+        <td><%= vote.post["creation_date"] %></td>
+        <td><%= vote.post["description"] %></td>
+        <td><%= vote.post["location"] %></td>
+        <td><%= vote.post["open"] %></td>
+        <td><%= vote.post["solved"] %></td>
+        <td><%= vote.post["comments"] %></td>
+        <td><%= vote.post["votes"] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
 <%= link_to 'Back', profiles_path %>
