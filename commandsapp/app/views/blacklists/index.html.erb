@@ -15,7 +15,7 @@
     <% @blacklists.each do |blacklist| %>
       <tr>
         <td><%= blacklist.date %></td>
-        <td><%= blacklist.user %></td>
+        <td><%= blacklist.user.email %></td>
         <td><%= link_to 'Show', blacklist %></td>
         <td><%= link_to 'Edit', edit_blacklist_path(blacklist) %></td>
         <td><%= link_to 'Destroy', blacklist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
