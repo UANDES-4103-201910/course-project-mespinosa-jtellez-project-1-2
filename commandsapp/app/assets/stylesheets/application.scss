@@ -38,7 +38,7 @@
 }
 
 .fa, .fas {
-	font-size: 23px;
+	font-size: 22px;
 }
 #vote {
 	color: DarkGrey;
@@ -76,4 +76,41 @@ body {
 .post-info {
 	font-size: 11px;
 	color: Grey;
+}
+
+
+/* ------PROFILE---------*/
+
+
+#profile-name {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+#profile-email {
+	color: DarkGrey;
+}
+
+#profile-location {
+	color: Grey;
+	font-size: 15px;
+}
+
+#profile-biography {
+	padding: 15px;
+	border-style: solid;
+	border: 0.25px;
+	border-color: LightGrey;
+	border-radius: 40px;
+}
+
+#profile-tab {
+	background: #9b0000;
+}
+#profile-tab:hover, #profile-tab:active {
+	background: #b80000;
+}
+#profile-tab-link, #profile-tab-link:hover {
+	color: White;	
+	font-size: 25px;
 }
