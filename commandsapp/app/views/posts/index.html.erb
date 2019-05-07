@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    
   </head>
   <body>
 
@@ -20,7 +20,9 @@
       </div>
     </li>
     <li class="list-inline-item">
-        <%= link_to 'New Post', new_post_path %>
+      <%= link_to new_post_path  do%>
+        <button type="button" class="btn btn-info">New Post</button>
+      <% end %>
     </li>            
   </ul>
         
@@ -30,7 +32,7 @@
     <ul class="list-unstyled">
 
       <% @posts.each do |post| %>
-
+      <%= link_to post_path(post["id"]) do %>
         <li class="media">
           <img src="..." class="align-self-center mr-3" alt="...">
           <div class="media-body">
@@ -54,6 +56,7 @@
               </td>
             </tr></table>
         </li>
+      <% end %>
 
 <!--
             <td><%= post["title"] %></td>

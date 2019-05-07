@@ -14,6 +14,9 @@
 
 @import "bootstrap";
 
+
+/*-------------NAVBAR------------*/
+
 .navbar {
 	background-color: #b80000;
 	height: 70px;
@@ -27,6 +30,9 @@
 #nav-search:hover {
 	color: #b80000;
 }
+
+
+/*--------------HOME-------------*/
 
 #new-post-btn {
 	vertical-lignment: center;
@@ -70,12 +76,17 @@ body {
 .media:hover {
 	border-color: #b80000;
 }
+.media:active{
+	background: LightGrey;
+}
 .post-title {
 	font-size: 16px;
+	color: Black;
 }
 .post-info {
 	font-size: 11px;
 	color: Grey;
+	font-style: normal;
 }
 
 
@@ -113,4 +124,41 @@ body {
 #profile-tab-link, #profile-tab-link:hover {
 	color: White;	
 	font-size: 25px;
+}
+
+/*--------------POST--------------*/
+
+#post-author-info {
+	padding: 10px;
+	border-right: 0.2px solid #b80000;
+}
+#post-author-name {
+	font-size: 15px;
+	color: Black;
+	align: center;
+}
+#post-author-name:hover {
+	text-decoration: underline White;
+	font-style: normal;
+	color: #b80000;
+}
+#post-info {
+	padding: 20px;
+}
+#post-title {
+	font-weight: bold;
+}
+.fa-globe {
+	font-size: 13px;
+}
+#post-location {
+	color: Grey;
+	font-size: 13px;
+}
+#post-date-votes {
+	align: center
+}
+#post-date {
+	font-size: 12px;
+	text-align: right;
 }
