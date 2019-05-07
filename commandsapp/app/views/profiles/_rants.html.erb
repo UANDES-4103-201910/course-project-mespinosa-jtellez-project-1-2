@@ -1,0 +1,38 @@
+
+<p>
+	  <strong>User Posts:</strong>
+	</p>
+
+	<table>
+	  <thead>
+	    <tr>
+	      <th>Title</th>
+	      <th>Creation date</th>
+	      <th>Description</th>
+	      <th>Location</th>
+	      <th>Open</th>
+	      <th>Solved</th>
+	      <th>User</th>
+	      <th>Comments</th>
+	      <th>Votes</th>
+	      
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% @profile[:posts].each do |post| %>
+	      <tr>
+	        <td><%= post["title"] %></td>
+	        <td><%= post["creation_date"] %></td>
+	        <td><%= post["description"] %></td>
+	        <td><%= post["location"] %></td>
+	        <td><%= post["open"] %></td>
+	        <td><%= post["solved"] %></td>
+	        <td><%= post["comments"] %></td>
+	        <td><%= post["votes"] %></td>
+	        
+	        
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>

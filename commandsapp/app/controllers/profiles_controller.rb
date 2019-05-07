@@ -17,9 +17,6 @@ class ProfilesController < ApplicationController
     profile_info[:votes] = list_votes
     profile_info[:user] = User.find(profile["user_id"])
     @profile = profile_info
-    
-
-
   end
 
   # GET /profiles/new
@@ -74,6 +71,38 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def activity
+    profile = Profile.find(params[:id])
+    profile_info = profile.attributes
+    profile_info[:posts] = list_posts
+    profile_info[:comments] = list_comments
+    profile_info[:votes] = list_votes
+    profile_info[:user] = User.find(profile["user_id"])
+    @profile = profile_info
+
+    respond_to do |format|
+      format.html #looks for views/books/index.html.erb
+      format.js {render layout: false}  #looks for views/books/index.js.erb
+    end
+  end
+
+  def rants
+    profile = Profile.find(params[:id])
+    profile_info = profile.attributes
+    profile_info[:posts] = list_posts
+    profile_info[:comments] = list_comments
+    profile_info[:votes] = list_votes
+    profile_info[:user] = User.find(profile["user_id"])
+    @profile = profile_info
+
+    respond_to do |format|
+      format.html #looks for views/books/index.html.erb
+      format.js {render layout: false}  #looks for views/books/index.js.erb
+    end
+
+    
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
@@ -114,6 +143,7 @@ class ProfilesController < ApplicationController
       posts = profile_comments
       posts.each do |post|
         comment_info = post.attributes
+        comment_info[:post] = Post.find(post.post_id)
         comment_list << comment_info
       end
       comment_list
