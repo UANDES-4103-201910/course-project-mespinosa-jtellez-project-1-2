@@ -144,6 +144,7 @@ class ProfilesController < ApplicationController
       posts.each do |post|
         comment_info = post.attributes
         comment_info[:post] = Post.find(post.post_id)
+        comment_info[:user] = User.find(post.post.user.id)
         comment_list << comment_info
       end
       comment_list
@@ -154,6 +155,8 @@ class ProfilesController < ApplicationController
       votes = profile_votes
       votes.each do |post|
         vote_info = post.attributes
+        vote_info[:post] = Post.find(post.post_id)
+        vote_info[:user] = User.find(post.user_id) 
         vote_list << vote_info
       end
       vote_list

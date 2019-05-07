@@ -1,38 +1,43 @@
 
-<p>
-	  <strong>User Posts:</strong>
-	</p>
+<ul class="list-unstyled">
 
-	<table>
-	  <thead>
-	    <tr>
-	      <th>Title</th>
-	      <th>Creation date</th>
-	      <th>Description</th>
-	      <th>Location</th>
-	      <th>Open</th>
-	      <th>Solved</th>
-	      <th>User</th>
-	      <th>Comments</th>
-	      <th>Votes</th>
-	      
-	    </tr>
-	  </thead>
+      <% @profile[:posts].each do |post| %>
 
-	  <tbody>
-	    <% @profile[:posts].each do |post| %>
-	      <tr>
-	        <td><%= post["title"] %></td>
-	        <td><%= post["creation_date"] %></td>
-	        <td><%= post["description"] %></td>
-	        <td><%= post["location"] %></td>
-	        <td><%= post["open"] %></td>
-	        <td><%= post["solved"] %></td>
-	        <td><%= post["comments"] %></td>
-	        <td><%= post["votes"] %></td>
-	        
-	        
-	      </tr>
-	    <% end %>
-	  </tbody>
-	</table>
+        <li class="media">
+          <img src="..." class="align-self-center mr-3" alt="...">
+          <div class="media-body">
+            <table width="100%"><tr width=100%>
+              <td width="90%" id="post">
+                <ul class="list-inline">
+                  <li class="list-inline-item post-title"><%= post["title"] %></li>
+                  <!--li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li-->
+                </ul>
+                <ul class="list-inline">
+                  <li class="list-inline-item post-info"><%= post["creation_date"] %></li>
+                  <li class="list-inline-item post-info">Comments: <%= post["comments"] %></li>
+                </ul>
+              </td>
+              <td width="5%" id="votes">
+                <i id="vote" class="fas fa-caret-up"></i>
+                  <p><%= post["votes"] %></p>
+                <i id="vote" class="fas fa-caret-down"></i>
+              </td>
+              <td width="10%" id="votes">
+              </td>
+            </tr></table>
+        </li>
+
+<!--
+            <td><%= post["title"] %></td>
+            <td><%= post["creation_date"] %></td>
+            <td><%= post["description"] %></td>
+            <td><%= post["location"] %></td>
+            <td><%= post["open"] %></td>
+            <td><%= post["solved"] %></td>
+            <td><%= User.find(post["user_id"]).email %></td>
+            <td><%= post["comments"] %></td>
+            <td><%= post["votes"] %></td>
+-->
+
+      <% end %>
+    </ul>
