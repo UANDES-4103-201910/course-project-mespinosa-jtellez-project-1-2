@@ -1,83 +1,89 @@
 
 	<br>
-	<ul class="list-unstyled">
 
-      <% @profile[:comments].each do |comment| %>
+	<table width="100%">
+		<tr>
+			<td width="49.3%" id="activity-left-column">
+				<ul class="list-unstyled">
 
-      <p id="activity-description"><%= comment[:user]["name"]%> commented "<%= comment["content"]%>"</p>
-      <%= link_to post_path(comment[:post]["id"]) do %>
-        <li class="media">
-          <img src="..." class="align-self-center mr-3" alt="...">
-          <div class="media-body">
-            <table width="100%"><tr width=100%>
-              <td width="90%" id="post">
-                <ul class="list-inline">
-                  <li class="list-inline-item post-title"><%= comment[:post]["title"] %></li>
-                  <li class="list-inline-item post-info"><%= comment[:user]["email"] %></li>
-                </ul>
-                <ul class="list-inline">
-                  <li class="list-inline-item post-info"><%= comment[:post]["creation_date"] %></li>
-                  <li class="list-inline-item post-info">Comments: <%= comment[:post]["comments"] %></li>
-                </ul>
-              </td>
-              <td width="5%" id="votes">
-                <i id="vote" class="fas fa-caret-up"></i>
-                  <p><%= comment[:post]["votes"] %></p>
-                <i id="vote" class="fas fa-caret-down"></i>
-              </td>
-              <td width="10%" id="votes">
-              </td>
-            </tr></table>
-          </div>
-        </li>
-    	<% end %>
-    	<hr>
+	      <% @profile[:comments].each do |comment| %>
 
-      <% end %>
-    </ul>
+	      <p id="activity-description" class="activity-item"><%= comment[:user]["name"]%> commented <b>"<%= comment["content"]%>"</b>:</p>
+	      <%= link_to post_path(comment[:post]["id"]) do %>
+	        <li class="media activity-item">
+	          <img src="..." class="align-self-center mr-3" alt="...">
+	          <div class="media-body">
+	            <table width="100%"><tr width=100%>
+	              <td width="90%" id="post">
+	                <ul class="list-inline">
+	                  <li class="list-inline-item post-title"><%= comment[:post]["title"] %></li>
+	                  <li class="list-inline-item post-info"><%= comment[:user]["email"] %></li>
+	                </ul>
+	                <ul class="list-inline">
+	                  <li class="list-inline-item post-info"><%= comment[:post]["creation_date"] %></li>
+	                  <li class="list-inline-item post-info">Comments: <%= comment[:post]["comments"] %></li>
+	                </ul>
+	              </td>
+	              <td width="5%" id="votes">
+	                <i id="vote" class="fas fa-caret-up"></i>
+	                  <p><%= comment[:post]["votes"] %></p>
+	                <i id="vote" class="fas fa-caret-down"></i>
+	              </td>
+	              <td width="10%" id="votes">
+	              </td>
+	            </tr></table>
+	          </div>
+	        </li>
+	    	<% end %>
+	    	<hr>
+
+	      <% end %>
+	      </ul>
+			</td>
+
+			<td width="50.7%" id="activity-right-column">
+				<ul class="list-unstyled">
+				<% @profile[:votes].each do |vote| %>
+
+		      <p id="activity-description" class="activity-item"><%= vote[:user]["name"]%><b> <% if vote[:value] == 1 %> upvoted
+		      	<% else %> downvoted <% end %></b> the rant:</p>
+		      <%= link_to post_path(vote[:post]["id"]) do %>
+		        <li class="media activity-item">
+		          <img src="..." class="align-self-center mr-3" alt="...">
+		          <div class="media-body">
+		            <table width="100%"><tr width=100%>
+		              <td width="90%" id="post">
+		                <ul class="list-inline">
+		                  <li class="list-inline-item post-title"><%= vote[:post]["title"] %></li>
+		                  <li class="list-inline-item post-info"><%= vote[:user]["email"] %></li>
+		                </ul>
+		                <ul class="list-inline">
+		                  <li class="list-inline-item post-info"><%= vote[:post]["creation_date"] %></li>
+		                  <li class="list-inline-item post-info">Comments: <%= vote[:post]["comments"] %></li>
+		                </ul>
+		              </td>
+		              <td width="5%" id="votes">
+		                <i id="vote" class="fas fa-caret-up"></i>
+		                  <p><%= vote[:post]["votes"] %></p>
+		                <i id="vote" class="fas fa-caret-down"></i>
+		              </td>
+		              <td width="10%" id="votes">
+		              </td>
+		            </tr></table>
+		          </div>
+		        </li>
+		    	<% end %>
+		    	<hr>
+
+		      <% end %>
+
+		    </ul>
+			</td>
+		</tr>
+	</table>
+	
+
+      
 
 
 	
-
-	<ul class="list-unstyled">
-
-      <% @profile[:votes].each do |vote| %>
-
-        <li class="media">
-          <img src="..." class="align-self-center mr-3" alt="...">
-          <div class="media-body">
-            <table width="100%"><tr width=100%>
-              <td width="90%" id="post">
-                <ul class="list-inline">
-                  <li class="list-inline-item post-title"><%= vote.post["title"] %></li>
-                  <li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li>
-                </ul>
-                <ul class="list-inline">
-                  <li class="list-inline-item post-info"><%= vote.post["creation_date"] %></li>
-                  <li class="list-inline-item post-info">Comments: <%= vote.post["comments"] %></li>
-                </ul>
-              </td>
-              <td width="5%" id="votes">
-                <i id="vote" class="fas fa-caret-up"></i>
-                  <p><%= vote.post["votes"] %></p>
-                <i id="vote" class="fas fa-caret-down"></i>
-              </td>
-              <td width="10%" id="votes">
-              </td>
-            </tr></table>
-        </li>
-
-<!--
-            <td><%= post["title"] %></td>
-            <td><%= post["creation_date"] %></td>
-            <td><%= post["description"] %></td>
-            <td><%= post["location"] %></td>
-            <td><%= post["open"] %></td>
-            <td><%= post["solved"] %></td>
-            <td><%= User.find(post["user_id"]).email %></td>
-            <td><%= post["comments"] %></td>
-            <td><%= post["votes"] %></td>
--->
-
-      <% end %>
-    </ul>
