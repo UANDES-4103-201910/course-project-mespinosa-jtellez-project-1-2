@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :dumpsters
   resources :comments
   resources :flags
   resources :posts
