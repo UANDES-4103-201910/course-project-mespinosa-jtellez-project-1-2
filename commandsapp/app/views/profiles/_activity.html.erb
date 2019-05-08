@@ -1,49 +1,11 @@
 
-	<p>
-	  <strong>User Comments:</strong>
-	</p>
-
-	<!--table>
-	  <thead>
-	    <tr>
-	      <th>Title</th>
-	      <th>Creation date</th>
-	      <th>Description</th>
-	      <th>Location</th>
-	      <th>Open</th>
-	      <th>Solved</th>
-	      <th>User</th>
-	      <th>Comments</th>
-	      <th>Votes</th>
-	    </tr>
-	  </thead>
-
-	  <tbody>
-	    <% @profile[:comments].each do |comment| %>
-	      <tr>
-	        <td><%= comment[:post]["title"] %></td>
-	        <td><%= comment[:post]["creation_date"] %></td>
-	        <td><%= comment[:post]["description"] %></td>
-	        <td><%= comment[:post]["location"] %></td>
-	        <td><%= comment[:post]["open"] %></td>
-	        <td><%= comment[:post]["solved"] %></td>
-	        <td><%= comment[:post]["comments"] %></td>
-	        <td><%= comment[:post]["votes"] %></td>
-	      </tr>
-	      <tr>
-	        <p>
-	          <strong>Comment:</strong>
-	          <%= comment["content"] %>
-	        </p>
-	      </tr>
-	    <% end %>
-	  </tbody>
-	</table-->
-
+	<br>
 	<ul class="list-unstyled">
 
       <% @profile[:comments].each do |comment| %>
 
+      <p id="activity-description"><%= comment[:user]["name"]%> commented "<%= comment["content"]%>"</p>
+      <%= link_to post_path(comment[:post]["id"]) do %>
         <li class="media">
           <img src="..." class="align-self-center mr-3" alt="...">
           <div class="media-body">
@@ -68,64 +30,14 @@
             </tr></table>
           </div>
         </li>
-
-<!--
-            <td><%= comment["title"] %></td>
-            <td><%= comment["creation_date"] %></td>
-            <td><%= comment["description"] %></td>
-            <td><%= comment["location"] %></td>
-            <td><%= comment["open"] %></td>
-            <td><%= comment["solved"] %></td>
-            <td><%= comment[:user]["email"] %></td>
-            <td><%= comment["comments"] %></td>
-            <td><%= comment["votes"] %></td>
--->
+    	<% end %>
+    	<hr>
 
       <% end %>
     </ul>
 
-	<p>
-	  <strong>--------------------------------------------</strong>
-	</p>
 
-	<p>
-	  <strong>User Votes:</strong>
-	</p>
-
-	<!--table>
-	  <thead>
-	    <tr>
-	      <th>Title</th>
-	      <th>Creation date</th>
-	      <th>Description</th>
-	      <th>Location</th>
-	      <th>Open</th>
-	      <th>Solved</th>
-	      <th>User</th>
-	      <th>Comments</th>
-	      <th>Votes</th>
-	      
-	    </tr>
-	  </thead>
-
-	  <tbody>
-	    <% @profile[:votes].each do |vote| %>
-	      <p>
-	        <strong>User Voted this post:</strong>
-	      </p>
-	      <tr>
-	        <td><%= vote.post["title"] %></td>
-	        <td><%= vote.post["creation_date"] %></td>
-	        <td><%= vote.post["description"] %></td>
-	        <td><%= vote.post["location"] %></td>
-	        <td><%= vote.post["open"] %></td>
-	        <td><%= vote.post["solved"] %></td>
-	        <td><%= vote.post["comments"] %></td>
-	        <td><%= vote.post["votes"] %></td>
-	      </tr>
-	    <% end %>
-	  </tbody>
-	</table-->
+	
 
 	<ul class="list-unstyled">
 

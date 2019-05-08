@@ -120,9 +120,11 @@ body {
 }
 #profile-tab:hover, #profile-tab:active {
 	background: #b80000;
+	text-decoration: underline #b80000;
 }
 #profile-tab-link, #profile-tab-link:hover {
 	color: White;	
+	font-style: normal;
 	font-size: 25px;
 }
 
@@ -161,4 +163,10 @@ body {
 #post-date {
 	font-size: 12px;
 	text-align: right;
+}
+
+#activity-description {
+	font-size: 13px;
+	color: #202020;
+	margin: 0px;
 }
