@@ -4,7 +4,8 @@ class BlacklistsController < ApplicationController
   # GET /blacklists
   # GET /blacklists.json
   def index
-    @blacklists = Blacklist.all
+    @blacklists = list_users
+    #render json: @blacklists
   end
 
   # GET /blacklists/1
@@ -70,5 +71,16 @@ class BlacklistsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def blacklist_params
       params.require(:blacklist).permit(:date, :user)
+    end
+
+    def list_users
+      user_list = []
+      blacklist = Blacklist.all
+      blacklist.each do |entry|
+        entry_info = entry.attributes
+        entry_info[:user] = User.find(entry.user.id)
+        user_list << entry_info
+      end
+      user_list
     end
 end

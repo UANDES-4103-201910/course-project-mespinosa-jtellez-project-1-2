@@ -4,7 +4,8 @@ class DumpstersController < ApplicationController
   # GET /dumpsters
   # GET /dumpsters.json
   def index
-    @dumpsters = Dumpster.all
+    @dumpsters = list_posts
+
   end
 
   # GET /dumpsters/1
@@ -69,6 +70,31 @@ class DumpstersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dumpster_params
-      params.fetch(:dumpster, {})
+      params.require(:dumpster).permit(:post, :date)
+    end
+
+    def dumpster_posts
+      Post.where(id: params[:post])
+    end
+
+    def post_comments
+      Comment.where(post: params[:post])
+    end
+
+    def post_votes
+      Vote.where(post: params[:post])
+    end
+
+    def list_posts
+      post_list = []
+      posts = Dumpster.all
+      posts.each do |post|
+        post_info = post.attributes
+        post_info[:post] = Post.find(post.post.id)
+        post_info[:votes] = post_votes
+        post_info[:comments] = post_comments
+        post_list << post_info
+      end
+      post_list
     end
 end

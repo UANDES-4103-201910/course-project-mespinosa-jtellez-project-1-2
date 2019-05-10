@@ -21,7 +21,7 @@
     </li>
     <li class="list-inline-item">
       <%= link_to new_post_path  do%>
-        <button type="button" class="btn btn-info">New Post</button>
+        <button type="button" class="btn btn-info">New Rant</button>
       <% end %>
     </li>            
   </ul>
@@ -58,17 +58,6 @@
         </li>
       <% end %>
 
-<!--
-            <td><%= post["title"] %></td>
-            <td><%= post["creation_date"] %></td>
-            <td><%= post["description"] %></td>
-            <td><%= post["location"] %></td>
-            <td><%= post["open"] %></td>
-            <td><%= post["solved"] %></td>
-            <td><%= User.find(post["user_id"]).email %></td>
-            <td><%= post["comments"] %></td>
-            <td><%= post["votes"] %></td>
--->
 
       <% end %>
     </ul>
