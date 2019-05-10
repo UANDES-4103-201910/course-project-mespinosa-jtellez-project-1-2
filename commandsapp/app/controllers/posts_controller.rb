@@ -81,6 +81,37 @@ class PostsController < ApplicationController
     end
   end
 
+  def comments
+    post = Post.find(params[:id])
+    post_info = post.attributes
+    commentaries = []
+    post_comments.each do |comment|
+      comment_info = comment.attributes
+      comment_info[:profile] = Profile.where(user: User.find(comment[:user_id])).first
+      comment_info[:user] = User.find(comment[:user_id])
+      commentaries << comment_info
+    end
+    post_info[:comments] = commentaries
+    post_info[:votes] = post_votes
+    post_info[:user] = User.find(post.user.id)
+    post_info[:profile] = Profile.where(user: post.user).first
+    @post = post_info
+  end
+
+  def photos
+    post = Post.find(params[:id])
+    post_info = post.attributes
+    post_info[:photos] = Image.where(post: post)
+    @post = post_info
+  end
+
+  def files
+    post = Post.find(params[:id])
+    post_info = post.attributes
+    post_info[:files] = Attached.where(post: post)
+    @post = post_info
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

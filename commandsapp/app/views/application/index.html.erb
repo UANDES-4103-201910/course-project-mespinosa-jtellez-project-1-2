@@ -1,32 +1,76 @@
+<!DOCTYPE html>
 <html>
   <head>
-  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    
   </head>
   <body>
-  	<nav class="navbar fixed-top navbar-expand-lg navbar-dark">
-  		  <%= link_to  posts_path %>
-		  
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		    <span class="navbar-toggler-icon"></span>
-		  </button>
 
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    
-		    <form class="form-inline my-2 my-lg-0">
-		      <input class="form-control mr-sm-2 shadow-none" type="search" placeholder="Search" aria-label="Search">
-		      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
-		      	<i class="fas fa-search"></i>
-		      </button>
-		    </form>
-		    <ul class="navbar-nav ml-auto">
-		      <li class="nav-item">
-		        <a class="nav-link" href="#">Log in</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="#">Log out</a>
-		      </li>
-		    </ul>
-		  </div>
-		</nav>
+    <h3>Newsfeed</h3>
+    <hr>
+
+  <ul class="list-inline">
+    <li class="list-inline-item">
+      <div class="input-group mb-3">
+        <select class="custom-select" id="inputGroupSelect01">
+          <option selected>Filter by...</option>
+          <option value="1">Most Upvoted</option>
+          <option value="2">Most Downvoted</option>
+          <option value="3">Most Commented</option>
+        </select>
+      </div>
+    </li>
+    <li class="list-inline-item">
+      <%= link_to new_post_path  do%>
+        <button type="button" class="btn btn-info">New Post</button>
+      <% end %>
+    </li>            
+  </ul>
+        
+      
+
+
+    <ul class="list-unstyled">
+
+      <% @posts.each do |post| %>
+      <%= link_to rant_path(post["id"]) do %>
+        <li class="media">
+          <img src="..." class="align-self-center mr-3" alt="...">
+          <div class="media-body">
+            <table width="100%"><tr width=100%>
+              <td width="90%" id="post">
+                <ul class="list-inline">
+                  <li class="list-inline-item post-title"><%= post["title"] %></li>
+                  <li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li>
+                </ul>
+                <ul class="list-inline">
+                  <li class="list-inline-item post-info"><%= post["creation_date"] %></li>
+                  <li class="list-inline-item post-info">Comments: <%= post["comments"] %></li>
+                </ul>
+              </td>
+              <td width="5%" id="votes">
+                <i id="vote" class="fas fa-caret-up"></i>
+                  <p><%= post["votes"] %></p>
+                <i id="vote" class="fas fa-caret-down"></i>
+              </td>
+              <td width="10%" id="votes">
+              </td>
+            </tr></table>
+        </li>
+      <% end %>
+
+<!--
+            <td><%= post["title"] %></td>
+            <td><%= post["creation_date"] %></td>
+            <td><%= post["description"] %></td>
+            <td><%= post["location"] %></td>
+            <td><%= post["open"] %></td>
+            <td><%= post["solved"] %></td>
+            <td><%= User.find(post["user_id"]).email %></td>
+            <td><%= post["comments"] %></td>
+            <td><%= post["votes"] %></td>
+-->
+
+      <% end %>
+    </ul>
   </body>
 </html>
