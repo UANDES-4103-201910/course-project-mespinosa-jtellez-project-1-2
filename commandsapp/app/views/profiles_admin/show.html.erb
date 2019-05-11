@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+  
+  <table width="100%">
+    <tr>
+      <td width="25%">
+        <%= @profile["picture"] %>
+      </td>
+      <td>
+        <ul class="list-inline">
+          <li id="profile-name" class="list-inline-item"><%= @profile[:user]["name"] %> </li>
+          <li id="profile-email" class="list-inline-item"><%= @profile[:user]["email"] %></li>
+        </ul>
+        <p id="profile-location"><%= @profile["city"] %>, <%= @profile["country"] %></p>
+        <hr>
+          <p id="profile-biography"><%= @profile["biography"] %></p>
+      </td>
+    </tr>
+  </table>
+
+  <br>
+
+  <ul id="profile-navtab" class="nav nav-tabs nav-fill">
+    <%= link_to rants_admin_path, class: "nav-item", remote: true do %>
+      <li id="profile-tab" class="nav-item">
+        <i id="profile-tab-link" class="nav-link">Rants</i>
+      </li>
+    <% end %>
+    <%= link_to activity_admin_path, class: "nav-item", remote: true do %>
+      <li id="profile-tab" class="nav-item">
+        <i id="profile-tab-link" class="nav-link">Activity</i>
+      </li>
+    <% end %>
+  </ul>
+
+<div id="profile_content">
+  
+  <br>
+  <ul class="list-unstyled">
+
+      <% @profile[:posts].each do |post| %>
+
+      <%= link_to rant_admin_path(post["id"]) do %>
+        <li class="media">
+          <img src="..." class="align-self-center mr-3" alt="...">
+          <div class="media-body">
+            <table width="100%"><tr width=100%>
+              <td width="90%" id="post">
+                <ul class="list-inline">
+                  <li class="list-inline-item post-title"><%= post["title"] %></li>
+                  <!--li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li-->
+                </ul>
+                <ul class="list-inline">
+                  <li class="list-inline-item post-info"><%= post["creation_date"] %></li>
+                  <li class="list-inline-item post-info">Comments: <%= post["comments"] %></li>
+                </ul>
+              </td>
+              <td width="5%" id="votes">
+                <i id="vote" class="fas fa-caret-up"></i>
+                  <p><%= post["votes"] %></p>
+                <i id="vote" class="fas fa-caret-down"></i>
+              </td>
+              <td width="10%" id="votes">
+              </td>
+            </tr></table>
+        </li>
+      <% end %>
+
+<!--
+            <td><%= post["title"] %></td>
+            <td><%= post["creation_date"] %></td>
+            <td><%= post["description"] %></td>
+            <td><%= post["location"] %></td>
+            <td><%= post["open"] %></td>
+            <td><%= post["solved"] %></td>
+            <td><%= User.find(post["user_id"]).email %></td>
+            <td><%= post["comments"] %></td>
+            <td><%= post["votes"] %></td>
+-->
+
+      <% end %>
+    </ul>
+</div>
+
+</body>
+</html>

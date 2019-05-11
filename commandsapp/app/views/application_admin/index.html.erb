@@ -31,7 +31,7 @@
     <ul class="list-unstyled">
 
       <% @posts.each do |post| %>
-      <%= link_to rant_path(post["id"]) do %>
+      <%= link_to rant_admin_path(post["id"]) do %>
         <li class="media">
           <img src="..." class="align-self-center mr-3" alt="...">
           <div class="media-body">

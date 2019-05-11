@@ -1,37 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    
-  </head>
-  <body>
+<br>
+<ul class="list-unstyled">
 
-    <h3>Newsfeed</h3>
-    <hr>
+      <% @profile[:posts].each do |post| %>
 
-  <ul class="list-inline">
-    <li class="list-inline-item">
-      <div class="input-group mb-3">
-        <select class="custom-select" id="inputGroupSelect01">
-          <option selected>Filter by...</option>
-          <option value="1">Most Upvoted</option>
-          <option value="2">Most Downvoted</option>
-          <option value="3">Most Commented</option>
-        </select>
-      </div>
-    </li>
-    <li class="list-inline-item">
-      <%= link_to new_post_path  do%>
-        <button type="button" class="btn btn-info">New Post</button>
-      <% end %>
-    </li>            
-  </ul>
-        
-      
-
-    <ul class="list-unstyled">
-
-      <% @posts.each do |post| %>
-      <%= link_to rant_path(post["id"]) do %>
+      <%= link_to rant_admin_path(post["id"]) do %>
         <li class="media">
           <img src="..." class="align-self-center mr-3" alt="...">
           <div class="media-body">
@@ -39,7 +11,7 @@
               <td width="90%" id="post">
                 <ul class="list-inline">
                   <li class="list-inline-item post-title"><%= post["title"] %></li>
-                  <li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li>
+                  <!--li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li-->
                 </ul>
                 <ul class="list-inline">
                   <li class="list-inline-item post-info"><%= post["creation_date"] %></li>
@@ -71,6 +43,3 @@
 
       <% end %>
     </ul>
-
-  </body>
-</html>
