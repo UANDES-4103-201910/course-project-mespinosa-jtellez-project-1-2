@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+class ApplicationAdminController < ApplicationController
 	protect_from_forgery with: :null_session #muy importante sacarlo
 	before_action :set_post, only: [:show, :edit, :update, :destroy]
 
