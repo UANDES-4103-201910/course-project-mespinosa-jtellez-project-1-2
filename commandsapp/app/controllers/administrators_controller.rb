@@ -4,7 +4,14 @@ class AdministratorsController < ApplicationController
   # GET /administrators
   # GET /administrators.json
   def index
-    @administrators = Administrator.all
+    administrators = Administrator.all
+    admin_list = []
+    admins.each do |admin|
+      admin_info = administrators.attributes
+      admin_info[:user] = User.find(admin["user"]["id"])
+      admin list << admin_info
+    end
+    @administrators = admin_list
   end
 
   # GET /administrators/1
