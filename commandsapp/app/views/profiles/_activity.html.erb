@@ -9,7 +9,7 @@
 	      <% @profile[:comments].each do |comment| %>
 
 	      <p id="activity-description" class="activity-item"><%= comment[:user]["name"]%> commented <b>"<%= comment["content"]%>"</b>:</p>
-	      <%= link_to post_path(comment[:post]["id"]) do %>
+	      <%= link_to rant_path(comment[:post]["id"]) do %>
 	        <li class="media activity-item">
 	          <img src="..." class="align-self-center mr-3" alt="...">
 	          <div class="media-body">
@@ -47,7 +47,7 @@
 
 		      <p id="activity-description" class="activity-item"><%= vote[:user]["name"]%><b> <% if vote[:value] == 1 %> upvoted
 		      	<% else %> downvoted <% end %></b> the rant:</p>
-		      <%= link_to post_path(vote[:post]["id"]) do %>
+		      <%= link_to rant_path(vote[:post]["id"]) do %>
 		        <li class="media activity-item">
 		          <img src="..." class="align-self-center mr-3" alt="...">
 		          <div class="media-body">
