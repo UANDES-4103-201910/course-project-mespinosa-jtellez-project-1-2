@@ -26,11 +26,17 @@
 }
 #nav-search{
 	border-radius: 12px;
+	font-size: 18px;
 }
 #nav-search:hover {
 	color: #b80000;
 }
-
+.nav-link {
+	font-size: 25px;
+}
+.log {
+	font-size: 16px;
+}
 
 /*--------------HOME-------------*/
 
@@ -41,10 +47,6 @@
 #new-post-icon {
 	font-size: 15px;
 	padding: 5px;
-}
-
-.fa, .fas {
-	font-size: 22px;
 }
 #vote {
 	color: DarkGrey;
@@ -150,9 +152,10 @@ body {
 	border-right: 0.2px solid #b80000;
 }
 #post-author-name {
-	font-size: 15px;
+	font-size: 20px;
 	color: Black;
 	align: center;
+	font-weight: bold;
 }
 #post-author-name:hover {
 	text-decoration: underline White;
@@ -176,6 +179,47 @@ body {
 	align: center
 }
 #post-date {
+	font-size: 12px;
+	text-align: right;
+}
+
+#post-tab {
+	background: #9b0000;
+}
+#post-tab:hover{
+	background: #b80000;
+}
+#post-tab-link, #profile-tab-link:hover {
+	color: White;	
+	font-style: normal;
+	font-size: 25px;
+}
+#post-tab-link:hover {
+	text-decoration: underline #b80000;
+}
+
+#comment-author {
+	font-size: 17px;
+	color: Black;
+	font-weight: bold;
+	margin-bottom: 0px;
+}
+#comment-author:hover {
+	text-decoration: underline White;
+	font-style: normal;
+	color: #b80000;
+}
+#comment-content {
+	margin-top: 0px;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background: #f5dada;
+	font-size: 15px;
+	border-radius: 15px;
+	display: inline-block;
+}
+#comment-date {
 	font-size: 12px;
 	text-align: right;
 }

@@ -40,7 +40,7 @@
               <td width="90%" id="post">
                 <ul class="list-inline">
                   <li class="list-inline-item post-title"><%= post["title"] %></li>
-                  <li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li>
+                  <li class="list-inline-item post-info"><%= User.find(post["user_id"]).name %></li>
                 </ul>
                 <ul class="list-inline">
                   <li class="list-inline-item post-info"><%= post["creation_date"] %></li>

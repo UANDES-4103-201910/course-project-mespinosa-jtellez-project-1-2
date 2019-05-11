@@ -23,6 +23,7 @@
       <%= link_to new_dumpster_path  do%>
         <button type="button" class="btn btn-info">Add Rant</button>
       <% end %>
+      <button type="button" class="btn btn-outline-info">Restore</button>
     </li>            
   </ul>
         
@@ -38,7 +39,7 @@
           <img src="..." class="align-self-center mr-3" alt="...">
           <div class="media-body">
             <table width="100%"><tr width=100%>
-              <td width="90%" id="post">
+              <td width="95%" id="post">
                 <ul class="list-inline">
                   <li class="list-inline-item post-title"><%= dump[:post]["title"] %></li>
                   <li class="list-inline-item post-info"><%= User.find(dump[:post]["user_id"]).email %></li>
@@ -48,12 +49,8 @@
                   <li class="list-inline-item post-info">Comments: <%= dump["comments"] %></li>
                 </ul>
               </td>
-              <td width="5%" id="votes">
-                <i id="vote" class="fas fa-caret-up"></i>
-                  <p><%= dump["votes"] %></p>
-                <i id="vote" class="fas fa-caret-down"></i>
-              </td>
-              <td width="10%" id="votes">
+              <td width="5%">
+                <input type="checkbox" value="">
               </td>
             </tr></table>
         </li>
