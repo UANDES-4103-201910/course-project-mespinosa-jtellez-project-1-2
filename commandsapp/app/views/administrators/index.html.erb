@@ -1,33 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Administrators</h1>
+<h3>Administrators</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Last access</th>
-      <th>Superadmin</th>
-      <th>Geofence</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
     <% @administrators.each do |administrator| %>
-      <tr>
-        <td><%= administrator.last_access %></td>
-        <td><%= administrator.superadmin %></td>
-        <td><%= administrator.geofence %></td>
-        <td><%= administrator.user %></td>
-        <td><%= link_to 'Show', administrator %></td>
-        <td><%= link_to 'Edit', edit_administrator_path(administrator) %></td>
-        <td><%= link_to 'Destroy', administrator, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <li class="media">
+          <img src="..." class="align-self-center mr-3" alt="...">
+          <div class="media-body">
+            <table width="100%"><tr width=100%>
+              <td width="90%" id="post">
+                <ul class="list-inline">
+                  <li class="list-inline-item post-title"></li>
+                  <li class="list-inline-item post-info"></li>
+                </ul>
+                <ul class="list-inline">
+                  <li class="list-inline-item post-info"><%= administrator["created_at"] %></li>
+                </ul>
+              </td>
+              <td width="10%" id="votes">
+              </td>
+            </tr></table>
+        </li>
     <% end %>
-  </tbody>
-</table>
-
 <br>
 
 <%= link_to 'New Administrator', new_administrator_path %>

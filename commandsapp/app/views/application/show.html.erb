@@ -48,71 +48,38 @@
 
   <ul class="nav nav-tabs nav-fill">
     <%= link_to rant_comments_path, class: "nav-item", remote: true do %>
-      <li id="profile-tab" class="nav-item">
-        <i id="profile-tab-link" class="nav-link" href="#">Comments</i>
-      </li>
+    <li id="post-tab" class="nav-item">
+      <i id="post-tab-link" class="nav-link" href="#">Comments</i>
+    </li>
     <% end %>
     <%= link_to rant_photos_path, class: "nav-item", remote: true do %>
-      <li id="profile-tab" class="nav-item">
-        <i id="profile-tab-link" class="nav-link" href="#">Photos</i>
-      </li>
+    <li id="post-tab" class="nav-item">
+      <i id="post-tab-link" class="nav-link" href="#">Photos</i>
+    </li>
     <% end %>
     <%= link_to rant_files_path, class: "nav-item", remote: true do %>
-      <li id="profile-tab" class="nav-item">
-        <i id="profile-tab-link" class="nav-link" href="#">Files</i>
-      </li>
+    <li id="post-tab" class="nav-item">
+      <i id="post-tab-link" class="nav-link" href="#">Files</i>
+    </li>
     <% end %>
   </ul> 
 
-
   <div id="post_content">
-    <p>
-      <strong>Open:</strong>
-      <%= @post["open"] %>
-    </p>
-    <p>
-      <strong>--------------------------------------------</strong>
-    </p>
+    <br>
+    <% @post[:comments].each do |comment| %>
 
-    <p>
-      <strong>Comments:</strong>
-    </p>
+    <div id="comment">
+      <div class="list-inline">
+      <%= link_to profile_path(Profile.where(user: comment[:user]["id"]).first) do %>
+        <p id="comment-author" class="list-inline-item"><%= comment[:user]["name"] %></p>
+      <% end %>
+        <p id="comment-date" class="list-inline-item"><%= comment["date"] %></p>
+      </div>
+      <p id="comment-content"><%= comment["content"] %></p>
+    </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Picture</th>
-          <th>Biography</th>
-          <th>City</th>
-          <th>Country</th>
-          <th>User</th>
-          <th>Content</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @post[:comments].each do |comment| %>
-          <tr>
-            <td><%= comment[:profile]["picture"] %></td>
-            <td><%= comment[:profile]["biography"] %></td>
-            <td><%= comment[:profile]["city"] %></td>
-            <td><%= comment[:profile]["country"] %></td>
-            <td><%= comment[:user]["email"] %></td>
-            <td><%= comment["content"] %></td>
-          </tr>
-          <tr>
-            <p>
-              <strong>Comment:</strong>
-              <%= comment["content"] %>
-            </p>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <% end %>
   </div>
-
-  <%= link_to 'Edit', edit_post_path(@post) %> |
-  <%= link_to 'Back', posts_path %>
 
 </body>
 </html>

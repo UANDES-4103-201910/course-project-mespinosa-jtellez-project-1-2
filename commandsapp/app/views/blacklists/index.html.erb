@@ -23,6 +23,7 @@
       <%= link_to new_blacklist_path  do%>
         <button type="button" class="btn btn-info">Add user</button>
       <% end %>
+      <button type="button" class="btn btn-outline-info">Restore</button>
     </li>            
   </ul>
         
@@ -35,16 +36,22 @@
 
       <%= link_to profile_path(Profile.where(user: entry[:user]["id"]).first) do %>
         <li class="media">
-          <img src="..." class="align-self-center mr-3" alt="...">
-          <div class="media-body">
-            <ul class="list-inline">
-              <li class="list-inline-item post-title"><%= entry[:user]["name"] %></li>
-              <li class="list-inline-item post-info"><%= entry[:user]["email"] %></li>
-            </ul>
-            <ul class="list-inline">
-              <li class="list-inline-item post-info"><%= entry["date"] %></li>
-            </ul>
-          </div>
+          <table width="100%"><tr>
+            <td width="95%">
+              <div class="media-body">
+                <ul class="list-inline">
+                  <li class="list-inline-item post-title"><%= entry[:user]["name"] %></li>
+                  <li class="list-inline-item post-info"><%= entry[:user]["email"] %></li>
+                </ul>
+                <ul class="list-inline">
+                  <li class="list-inline-item post-info"><%= entry["created_at"] %></li>
+                </ul>
+              </div>
+            </td>
+            <td width="5%">
+                <input type="checkbox" value="">
+            </td>
+          </tr></table>
         </li>
       <% end %>
       <% end %>
