@@ -6,10 +6,11 @@ class AdministratorsController < ApplicationController
   def index
     administrators = Administrator.all
     admin_list = []
-    admins.each do |admin|
-      admin_info = administrators.attributes
-      admin_info[:user] = User.find(admin["user"]["id"])
-      admin list << admin_info
+    administrators.each do |admin|
+      admin_info = admin.attributes
+      admin_info[:user] = User.find(admin["user_id"])
+      admin_info[:geofence] = Geofence.find(admin["geofence_id"])
+      admin_list << admin_info
     end
     @administrators = admin_list
   end
