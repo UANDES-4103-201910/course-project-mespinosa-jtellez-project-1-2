@@ -1,26 +1,32 @@
 <p id="notice"><%= notice %></p>
 
 <h3>Administrators</h3>
-
+<%= link_to new_administrator_path  do%>
+  <button type="button" class="btn btn-info">New Admin</button>
+<% end %>
+<hr>
     <% @administrators.each do |administrator| %>
-      <li class="media">
-          <img src="..." class="align-self-center mr-3" alt="...">
+
+
+      <%= link_to profile_path(Profile.where(user: administrator[:user]["id"]).first) do %>
+        <li class="media">
           <div class="media-body">
-            <table width="100%"><tr width=100%>
-              <td width="90%" id="post">
+            <table width="100%"><tr>
+              <td width="70%" id="post">
                 <ul class="list-inline">
-                  <li class="list-inline-item post-title"></li>
-                  <li class="list-inline-item post-info"></li>
+                  <li class="list-inline-item post-title"><%= administrator[:user]["name"] %></li>
+                  <li class="list-inline-item post-info"><%= administrator[:user]["email"] %></li>
                 </ul>
+              </td>
+              <td width="30%" id="votes">
                 <ul class="list-inline">
+                  <li class="list-inline-item post-info"><%= administrator[:geofence]["location"] %></li>
                   <li class="list-inline-item post-info"><%= administrator["created_at"] %></li>
                 </ul>
               </td>
-              <td width="10%" id="votes">
-              </td>
             </tr></table>
         </li>
+      <% end %>
     <% end %>
 <br>
 
-<%= link_to 'New Administrator', new_administrator_path %>
