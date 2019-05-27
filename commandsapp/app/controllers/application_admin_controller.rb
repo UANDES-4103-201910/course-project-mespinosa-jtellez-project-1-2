@@ -1,10 +1,11 @@
 class ApplicationAdminController < ApplicationController
-	protect_from_forgery with: :null_session #muy importante sacarlo
-	before_action :set_post, only: [:show, :edit, :update, :destroy]
+	protect_from_forgery with: :exception #muy importante sacarlo
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
 
   def is_admin?
-  	params[:admin_scope].eql? true
+    params[:admin_scope].eql? true
   end
 
   # GET /posts
