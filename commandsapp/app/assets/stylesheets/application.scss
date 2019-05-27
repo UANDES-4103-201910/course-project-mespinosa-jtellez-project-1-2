@@ -223,3 +223,21 @@ body {
 	font-size: 12px;
 	text-align: right;
 }
+
+/*-----------------------New User--------------*/
+
+.form-text-field {
+	border-radius: 15px;
+	border: solid 1px #b80000;
+	padding: 2px;
+}
+.form-text-field:hover {
+	background: #f5dada;
+}
+.back-link {
+	color: DarkGrey;
+}
+.back-link:hover {
+	color: Grey;
+	text-decoration: underline White;
+}
