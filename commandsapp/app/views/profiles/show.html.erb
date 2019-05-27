@@ -14,6 +14,7 @@
         <ul class="list-inline">
           <li id="profile-name" class="list-inline-item"><%= @profile[:user]["name"] %> </li>
           <li id="profile-email" class="list-inline-item"><%= @profile[:user]["email"] %></li>
+          <button type="button" class="btn btn-secondary"><i class="fas fa-user-cog"></i></button>
         </ul>
         <p id="profile-location"><%= @profile["city"] %>, <%= @profile["country"] %></p>
         <hr>

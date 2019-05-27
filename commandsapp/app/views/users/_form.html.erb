@@ -12,21 +12,21 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
+    <%= form.label :email %><br>
+    <%= form.text_field :email, class: 'form-text-field' %>
+  </div><br>
 
   <div class="field">
-    <%= form.label :password %>
-    <%= form.text_field :password %>
-  </div>
+    <%= form.label :password %><br>
+    <%= form.text_field :password, class: 'form-text-field' %>
+  </div><br>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name, class: 'form-text-field' %>
+  </div><br>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Submit', :class => "btn btn-outline-info" %>
   </div>
 <% end %>
