@@ -1,5 +1,5 @@
-<h1>New Administrator</h1>
-
+<h3>New Administrator</h3>
+<hr>
 <%= render 'form', administrator: @administrator %>
 
-<%= link_to 'Back', administrators_path %>
+<%= link_to administrators_path do %><p class="back-link">Back to admins</p><% end %>

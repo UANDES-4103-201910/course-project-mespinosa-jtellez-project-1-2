@@ -1,32 +1,41 @@
 <p id="notice"><%= notice %></p>
 
 <h3>Administrators</h3>
-<%= link_to new_administrator_path  do%>
-  <button type="button" class="btn btn-info">New Admin</button>
-<% end %>
+
 <hr>
+<%= form_tag administrators_destroy_selected_path, method: :delete do %>
+<%= button_tag(type: "submit", class: "btn btn-outline-dark") do %>
+    <i class="fas fa-trash"></i>
+<% end %><br><br>
     <% @administrators.each do |administrator| %>
 
 
-      <%= link_to profile_path(Profile.where(user: administrator[:user]["id"]).first) do %>
-        <li class="media">
-          <div class="media-body">
+      <table width="100%"><tr>
+
+        <td width="5%"><%= check_box_tag "administrators[]", administrator[:id] %></td>
+
+        <%= link_to profile_path(Profile.where(user: administrator[:user]["id"]).first) do %>
+        <td class="media" width="95%">
+          <div class="media-body" id="admin">
             <table width="100%"><tr>
-              <td width="70%" id="post">
+              <td width="75%" id="post">
                 <ul class="list-inline">
                   <li class="list-inline-item post-title"><%= administrator[:user]["name"] %></li>
                   <li class="list-inline-item post-info"><%= administrator[:user]["email"] %></li>
                 </ul>
               </td>
-              <td width="30%" id="votes">
+              <td width="25%" id="votes">
                 <ul class="list-inline">
                   <li class="list-inline-item post-info"><%= administrator[:geofence]["location"] %></li>
                   <li class="list-inline-item post-info"><%= administrator["created_at"] %></li>
                 </ul>
               </td>
             </tr></table>
-        </li>
-      <% end %>
+          </div>
+        </td>
+        <% end %>
+      </tr></table>
     <% end %>
+<% end %>
 <br>
 
