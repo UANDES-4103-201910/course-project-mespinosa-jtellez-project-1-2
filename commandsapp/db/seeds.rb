@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-users = User.create([{email: "jatellez@miuandes.cl", password: "123456789", name: "joaco"}, 
+users = User.create([{email: "jatellez@miuandes.com", password: "123456789", name: "joaco"}, 
 	{email: "macakill@miuandes.cl", password: "123456789", name: "maca"}])
 posts = Post.create([{"title": "jaja salpica", "creation_date": "nil", "description": "y salpicó po", "location": "Santiago, Chile", "open": "1", "solved": "0", "user": users.first },
 {"title": "jaja salpica", "creation_date": "nil", "description": "y salpicó po", "location": "Santiago, Chile", "open": "1", "solved": "0", "user": users.last }])

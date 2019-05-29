@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
-	protect_from_forgery with: :null_session #muy importante sacarlo
-	before_action :set_post, only: [:show, :edit, :update, :destroy]
+	protect_from_forgery with: :exception #muy importante sacarlo
+  layout proc { google_logged_in ? "aplication_registered" : "application" }
+	#before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
 
   def is_admin?
@@ -114,6 +116,22 @@ class ApplicationController < ActionController::Base
     post_info = post.attributes
     post_info[:files] = Attached.where(post: post)
     @post = post_info
+  end
+
+  def current_user
+   @current_user ||= User.find(session["warden.user.user.key"][0][0])
+
+  end
+
+  def is_user_logged_in?
+  #complete this method
+  
+    logged_in = current_user
+   if current_user then true else redirect_to root_path end 
+  end
+
+  def google_logged_in
+    if session["warden.user.user.key"] then true else false end
   end
 
 

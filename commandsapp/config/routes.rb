@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   resources :administrators
   resources :users
   resources :geofences
-  get '/', to: 'application#index'
+  get '/', to: 'application#index', as: "root"
+  get '/log_in', to: 'sessions#new', as: "log_in"
+  get '/log_out', to: 'sessions#destroy', as: "log_out"
+
   get '/profiles/:id/activity(.:format)', to: 'profiles#activity', as: "activity"
   get '/profiles/:id/rants(.:format)', to: 'profiles#rants', as: "rants"
   #get '/posts/:id/comments(.format)', to: 'posts#comments', as: "post_comments"
