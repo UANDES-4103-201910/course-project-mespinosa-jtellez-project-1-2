@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   resources :dumpsters
   resources :comments
   resources :flags
@@ -6,10 +7,15 @@ Rails.application.routes.draw do
   resources :blacklists
   #get '/profiles/:id/:String(.:format)', to: 'profiles#show'
   resources :profiles
+
+  delete '/administrators', to: 'administrators#destroy_selected', as: "administrators_destroy_selected"
   resources :administrators
   resources :users
   resources :geofences
-  get '/', to: 'application#index'
+  get '/', to: 'application#index', as: "root"
+  get '/log_in', to: 'sessions#new', as: "log_in"
+  get '/log_out', to: 'sessions#destroy', as: "log_out"
+
   get '/profiles/:id/activity(.:format)', to: 'profiles#activity', as: "activity"
   get '/profiles/:id/rants(.:format)', to: 'profiles#rants', as: "rants"
   #get '/posts/:id/comments(.format)', to: 'posts#comments', as: "post_comments"
@@ -19,7 +25,9 @@ Rails.application.routes.draw do
   get '/rant/:id/photos(.format)', to: 'application#photos', as: "rant_photos"
   get '/rant/:id/files(.format)', to: 'application#files', as: "rant_files"
   get '/rant/:id', to: 'application#show', as: "rant"
-  get '/administrators/destroy_selected', to: 'administrators#destroy_selected', as: "administrators_destroy_selected"
+
+  get "/register", to: 'users#new', as: "register"
+  
 
   scope '/admin', admin_scope: true do
     #get '/profiles/:id/:String(.:format)', to: 'profiles#show'
