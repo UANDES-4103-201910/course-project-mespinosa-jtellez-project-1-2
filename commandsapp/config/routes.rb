@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :blacklists
   #get '/profiles/:id/:String(.:format)', to: 'profiles#show'
   resources :profiles
+
+  delete '/administrators', to: 'administrators#destroy_selected', as: "administrators_destroy_selected"
   resources :administrators
   resources :users
   resources :geofences
@@ -23,7 +25,9 @@ Rails.application.routes.draw do
   get '/rant/:id/photos(.format)', to: 'application#photos', as: "rant_photos"
   get '/rant/:id/files(.format)', to: 'application#files', as: "rant_files"
   get '/rant/:id', to: 'application#show', as: "rant"
-  get '/administrators/destroy_selected', to: 'administrators#destroy_selected', as: "administrators_destroy_selected"
+
+  get "/register", to: 'users#new', as: "register"
+  
 
   scope '/admin', admin_scope: true do
     #get '/profiles/:id/:String(.:format)', to: 'profiles#show'

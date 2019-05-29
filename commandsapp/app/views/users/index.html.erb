@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<!--p id="notice"><%= notice %></p-->
 
 <h3>Users</h3>
 
@@ -24,7 +24,7 @@
 <ul class="list-unstyled">
 
   <% @users.each do |user| %>
-  <%= link_to user_path(user["id"]) do %>
+  <%= link_to profile_path(user["id"]) do %>
     <li class="media">
       <img src="..." class="align-self-center mr-3" alt="...">
       <div class="media-body">
