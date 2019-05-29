@@ -13,6 +13,7 @@
  */
 
 @import "bootstrap";
+@import 'bootstrap-select';
 
 
 /*-------------NAVBAR------------*/
@@ -240,4 +241,7 @@ body {
 .back-link:hover {
 	color: Grey;
 	text-decoration: underline White;
+}
+.col-select {
+	width: 200px;
 }

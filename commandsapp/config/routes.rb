@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/rant/:id/photos(.format)', to: 'application#photos', as: "rant_photos"
   get '/rant/:id/files(.format)', to: 'application#files', as: "rant_files"
   get '/rant/:id', to: 'application#show', as: "rant"
+  get '/administrators/destroy_selected', to: 'administrators#destroy_selected', as: "administrators_destroy_selected"
 
   scope '/admin', admin_scope: true do
     #get '/profiles/:id/:String(.:format)', to: 'profiles#show'

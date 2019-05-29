@@ -69,6 +69,15 @@ class AdministratorsController < ApplicationController
     end
   end
 
+  def destroy_multiple
+    Administrator.destroy(params[:administrators])
+
+    respond_to do |format|
+      format.html { redirect_to administrators_path }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_administrator
