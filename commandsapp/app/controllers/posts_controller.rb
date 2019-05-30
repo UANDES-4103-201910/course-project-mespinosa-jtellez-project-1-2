@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  
 
   # GET /posts
   # GET /posts.json
@@ -30,10 +31,18 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+    #upload
+    #render json: {params: params}
     post_params_new = post_params
     user = User.where(email: post_params[:user]).first
     post_params_new[:user] = user
-    @post = Post.new(post_params_new)
+    post = Post.new(post_params_new)
+    uploaded_io = params[:post][:file]
+    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+      file.write(uploaded_io.read)
+      post.avatar = file
+    end
+    @post = post
     #respond_to do |format|
     if @post.save
       #format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -135,5 +144,12 @@ class PostsController < ApplicationController
         post_list << post_info
       end
       post_list
+    end
+
+    def upload
+      uploaded_io = params[:post][:file]
+      File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
     end
 end

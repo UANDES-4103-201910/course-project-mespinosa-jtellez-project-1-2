@@ -11,8 +11,8 @@ class CallbacksController < Devise::OmniauthCallbacksController
         sign_in_and_redirect @user, event: :authentication
       else
         session['devise.google_data'] = request.env['omniauth.auth'].except(:extra) # Removing extra as it can overflow some session stores
-        #redirect_to new_user_registration_url, notice: @user.errors.full_messages.join("\n")
-        render json: {user: @user}
+        redirect_to register_path, notice: @user.errors.full_messages.join("\n")
+        #render json: {user: @user}
       end
   end
 end

@@ -10,6 +10,8 @@ class Post < ApplicationRecord
 	has_many :link
 	has_one :dumpster
 
+	mount_uploader :avatar, AvatarUploader
+
 	validates :title, length: { minimum: 2 }, presence: true
     validates :description, length: { maximum: 500 }, presence: true
 
