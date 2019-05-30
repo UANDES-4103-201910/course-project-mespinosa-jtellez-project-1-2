@@ -11,6 +11,7 @@ class Post < ApplicationRecord
 	has_one :dumpster
 
 	mount_uploader :avatar, AvatarUploader
+	mount_uploader :image, ImageUploader
 
 	validates :title, length: { minimum: 2 }, presence: true
     validates :description, length: { maximum: 500 }, presence: true

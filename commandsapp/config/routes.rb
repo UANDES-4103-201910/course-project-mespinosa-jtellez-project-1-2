@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   get '/rant/:id', to: 'application#show', as: "rant"
 
   get "/register", to: 'users#new', as: "register"
+
+  get '/rant/:id/file_selected', to: 'application#show_file', as: "file"
   
 
   scope '/admin', admin_scope: true do
