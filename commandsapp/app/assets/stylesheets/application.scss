@@ -13,7 +13,6 @@
  */
 
 @import "bootstrap";
-@import 'bootstrap-select';
 
 
 /*-------------NAVBAR------------*/
@@ -37,6 +36,10 @@
 }
 .log {
 	font-size: 16px;
+}
+.logout {
+	border-left: 1px solid #9b0000;
+	margin-left: 5px;
 }
 
 /*--------------HOME-------------*/
@@ -230,7 +233,7 @@ body {
 .form-text-field {
 	border-radius: 15px;
 	border: solid 1px #b80000;
-	padding: 2px;
+	padding: 5px;
 }
 .form-text-field:hover {
 	background: #f5dada;

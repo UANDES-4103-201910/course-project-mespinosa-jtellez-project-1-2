@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-</head>
-<body>
-  
+
   <table width="100%">
     <tr>
       <td width="25%">
@@ -14,7 +8,8 @@
         <ul class="list-inline">
           <li id="profile-name" class="list-inline-item"><%= @profile[:user]["name"] %> </li>
           <li id="profile-email" class="list-inline-item"><%= @profile[:user]["email"] %></li>
-          <button type="button" class="btn btn-secondary"><i class="fas fa-user-cog"></i></button>
+          <button type="button" class="btn btn-outline-secondary list-inline-item" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></i></button>
+          <button type="button" class="btn btn-secondary list-inline-item" data-toggle="modal" data-target="#adminModal"><i class="fas fa-user-cog"></i></button>
         </ul>
         <p id="profile-location"><%= @profile["city"] %>, <%= @profile["country"] %></p>
         <hr>
@@ -37,6 +32,8 @@
       </li>
     <% end %>
   </ul>
+
+
 
 <div id="profile_content">
   
@@ -71,22 +68,55 @@
         </li>
       <% end %>
 
-<!--
-            <td><%= post["title"] %></td>
-            <td><%= post["creation_date"] %></td>
-            <td><%= post["description"] %></td>
-            <td><%= post["location"] %></td>
-            <td><%= post["open"] %></td>
-            <td><%= post["solved"] %></td>
-            <td><%= User.find(post["user_id"]).email %></td>
-            <td><%= post["comments"] %></td>
-            <td><%= post["votes"] %></td>
--->
-
       <% end %>
     </ul>
 </div>
 
-</body>
-</html>
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <ul class="list-inline">
+          <h5 class="modal-title list-inline-item" id="exampleModalLabel">Edit profile</h5>
+        </ul>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-info">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <ul class="list-inline">
+          <h5 class="modal-title list-inline-item" id="exampleModalLabel">User details</h5>
+        </ul>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Last access:</p>
+        <p>User role: </p>
+        <ul class="list-inline">
+          <li class="list-inline-item"><button class="btn btn-secondary">Make Admin</button></li>
+          <li class="list-inline-item"><button class="btn btn-secondary">Change password</button></li>
+          <li class="list-inline-item"><button class="btn btn-danger">Delete user</button></li>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-info">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
