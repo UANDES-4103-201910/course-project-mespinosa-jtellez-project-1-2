@@ -47,15 +47,21 @@
 
 
   <ul class="nav nav-tabs nav-fill">
+    <%= link_to rant_comments_path, class: "nav-item", remote: true do %>
       <li id="profile-tab" class="nav-item">
         <i id="profile-tab-link" class="nav-link" href="#">Comments</i>
       </li>
+    <% end %>
+    <%= link_to rant_photos_path, class: "nav-item", remote: true do %>
       <li id="profile-tab" class="nav-item">
         <i id="profile-tab-link" class="nav-link" href="#">Photos</i>
       </li>
+    <% end %>
+    <%= link_to rant_files_path, class: "nav-item", remote: true do %>
       <li id="profile-tab" class="nav-item">
         <i id="profile-tab-link" class="nav-link" href="#">Files</i>
       </li>
+    <% end %>
   </ul> 
 
 

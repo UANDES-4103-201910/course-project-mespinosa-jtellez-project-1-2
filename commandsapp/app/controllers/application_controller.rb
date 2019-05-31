@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   # GET /posts
   # GET /posts.json
   def index
-	@posts = list_posts
+	 @posts = list_posts
   end
 
   # GET /posts/1
@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
     post_info[:user] = User.find(post.user.id)
     post_info[:profile] = Profile.where(user: post.user).first
     @post = post_info
+    #render json: {post: @post}
     
   end
 
@@ -105,17 +106,21 @@ class ApplicationController < ActionController::Base
   end
 
   def photos
-    post = Post.find(params[:id])
-    post_info = post.attributes
-    post_info[:photos] = Image.where(post: post)
-    @post = post_info
+    @post = Post.find(params[:id])
+    #post_info = post.attributes
+    #post_info[:photos] = Image.where(post: post)
+    #@post = post_info
   end
 
   def files
-    post = Post.find(params[:id])
-    post_info = post.attributes
-    post_info[:files] = Attached.where(post: post)
-    @post = post_info
+    @post = Post.find(params[:id])
+    #post_info = post.attributes
+    #post_info[:files] = Attached.where(post: post)
+    #@post = post_info
+  end
+
+  def show_file
+    @post = Post.find(params[:id])
   end
 
   def current_user

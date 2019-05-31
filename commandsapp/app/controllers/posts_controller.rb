@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   def index
     #@posts = list_posts
     @posts = Post.all
-    render json: {posts: @posts}
+    #render json: {posts: @posts}
     
   end
 
@@ -15,7 +15,7 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
-    render json: {post: @post}
+    #render json: {post: @post}
     
   end
 
@@ -42,18 +42,23 @@ class PostsController < ApplicationController
       file.write(uploaded_io.read)
       post.avatar = file
     end
-    @post = post
-    #respond_to do |format|
-    if @post.save
-      #format.html { redirect_to @user, notice: 'User was successfully created.' }
-      #format.json { render :json }
-      render json: @post, status: :created, location: @post
-    else
-      #format.html { render :new }
-      #format.json { render json: @user.errors, status: :unprocessable_entity }
-      render json: @post.errors, status: :unprocessable_entity
+    uploaded_io = params[:post][:picture]
+    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+      file.write(uploaded_io.read)
+      post.image = file
     end
-    #end
+    @post = post
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.json { render :json }
+        #render json: @post, status: :created, location: @post
+      else
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+        #render json: @post.errors, status: :unprocessable_entity
+      end
+    end
   end
 
   # PATCH/PUT /posts/1
@@ -110,7 +115,7 @@ class PostsController < ApplicationController
   def files
     post = Post.find(params[:id])
     post_info = post.attributes
-    post_info[:files] = Attached.where(post: post)
+    #post_info[:files] = Attached.where(post: post)
     @post = post_info
   end
 
