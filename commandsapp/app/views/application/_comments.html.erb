@@ -1,4 +1,13 @@
 <br>
+
+<%= form_for(@comment) do |f| %>
+  <%= f.hidden_field :post_id, :value => @post.id %>
+  <%= f.text_area :content, id: "new-comment-content", class: "form-text-field"  %>
+  <br>
+  <%=  f.submit "Send", class: "btn btn-outline-info" %>
+<hr>
+<% end %>
+
     <% @post[:comments].each do |comment| %>
 
     <div id="comment">
@@ -6,7 +15,7 @@
       <%= link_to profile_path(Profile.where(user: comment[:user]["id"]).first) do %>
         <p id="comment-author" class="list-inline-item"><%= comment[:user]["name"] %></p>
       <% end %>
-        <p id="comment-date" class="list-inline-item"><%= comment["date"] %></p>
+        <p id="comment-date" class="list-inline-item"><%= comment["created_at"] %></p>
       </div>
       <p id="comment-content"><%= comment["content"] %></p>
     </div>
