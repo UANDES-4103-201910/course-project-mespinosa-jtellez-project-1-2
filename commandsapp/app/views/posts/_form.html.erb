@@ -12,49 +12,52 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.label :title %><br>
+    <%= form.text_field :title, class: 'form-text-field form-control' %>
+  </div><br>
+  <div class="text_field">
+    <%= form.label :description %><br>
+    <%= form.text_area :description, class: 'form-text-field form-control', rows: "8" %>
+  </div>
+  <hr>
+  <div class="field">
+    <%= form.label :location %><br>
+    <%= form.text_field :location, class: 'form-text-field' %>
+  </div><br>
+
+  <div class="list-inline-item custom-file">
+    <%= form.file_field :picture, class: 'custom-file-input' %>
+    <%= form.label :picture, class: 'custom-file-label' %>
+  </div>
+  <br><br>
+
+  <div class="list-inline-item custom-file">
+    <%= form.file_field :file, class: 'custom-file-input' %>
+    <%= form.label :file, class: 'custom-file-label' %>
+  </div>
+  <br><br>
+
+  <div class="field form-check">
+    <%= form.check_box :open %> Close comments
   </div>
 
-  <div class="field">
-    <%= form.label :creation_date %>
-    <%= form.datetime_select :creation_date %>
-  </div>
+  <!--div class="field">
+    <%= form.label :creation_date %><br>
+    <%= form.datetime_select :creation_date, class: 'form-text-field' %>
+  </div-->
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :location %>
-    <%= form.text_field :location %>
-  </div>
-
-  <div class="field">
-    <%= form.label :open %>
-    <%= form.check_box :open %>
-  </div>
-
-  <div class="field">
+  <!--div class="field">
     <%= form.label :solved %>
     <%= form.check_box :solved %>
-  </div>
+  </div-->
 
-  <div class="field">
+  <!--div class="field">
     <%= form.label :user %>
     <%= form.text_field :user %>
-  </div>
+  </div-->
 
-  <div>
-    <%= form.file_field :picture %>
-  </div>
-    <%= form.file_field :file %>
-  <div>
-    
-  </div>
-
+  <hr>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Create', class: 'btn btn-outline-info' %>
   </div>
 <% end %>

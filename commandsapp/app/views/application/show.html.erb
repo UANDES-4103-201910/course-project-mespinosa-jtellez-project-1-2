@@ -16,7 +16,7 @@
 
       <td id="post-info" width="70%">
         <div class="list-inline">
-          <p id="post-date" class="list-inline-item"><%= @post["creation_date"] %></p>
+          <p id="post-date" class="list-inline-item"><%= @post["created_at"] %></p>
           <% if @post["solved"] == true %>
           <span class="badge badge-pill badge-success">Solved</span>
           <% else %>
@@ -65,7 +65,14 @@
   </ul> 
 
   <div id="post_content">
+
     <br>
+    
+    <%= form_with model: Comment.new do |form| %>
+      <%= form.text_area :content, rows: 3, class: 'form-text-field', id: 'new-comment-content' %>
+      <%= form.submit 'Send', class: 'btn btn-outline-info' %>
+    <% end %>
+    <hr>  
     <% @post[:comments].each do |comment| %>
 
     <div id="comment">
@@ -73,7 +80,7 @@
       <%= link_to profile_path(Profile.where(user: comment[:user]["id"]).first) do %>
         <p id="comment-author" class="list-inline-item"><%= comment[:user]["name"] %></p>
       <% end %>
-        <p id="comment-date" class="list-inline-item"><%= comment["date"] %></p>
+        <p id="comment-date" class="list-inline-item"><%= comment["created_at"] %></p>
       </div>
       <p id="comment-content"><%= comment["content"] %></p>
     </div>

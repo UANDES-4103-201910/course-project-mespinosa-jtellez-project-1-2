@@ -228,6 +228,13 @@ body {
 	text-align: right;
 }
 
+#new-comment-content {
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
 /*-----------------------New User--------------*/
 
 .form-text-field {
@@ -236,7 +243,7 @@ body {
 	padding: 5px;
 }
 .form-text-field:hover {
-	background: #f5dada;
+	background: #f4effc;
 }
 .back-link {
 	color: DarkGrey;
@@ -247,4 +254,11 @@ body {
 }
 .col-select {
 	width: 200px;
+}
+
+/*------------------------New Post------------*/
+
+.custom-file {
+	width: 40%;
+	padding: 2px;
 }
