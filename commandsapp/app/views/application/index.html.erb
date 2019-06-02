@@ -33,16 +33,19 @@
     <ul class="list-unstyled">
 
       <% @posts.each do |post| %>
-      <%= link_to rant_path(post["id"]) do %>
         <li class="media">
           <img src="..." class="align-self-center mr-3" alt="...">
           <div class="media-body">
             <table width="100%"><tr width=100%>
               <td width="90%" id="post">
+
+              <%= link_to rant_path(post["id"]) do %>
                 <ul class="list-inline">
                   <li class="list-inline-item post-title"><%= post["title"] %></li>
                   <li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li>
                 </ul>
+              <% end %>
+
                 <ul class="list-inline">
                   <li class="list-inline-item post-info"><%= post["creation_date"] %></li>
                   <li class="list-inline-item post-info">Comments: <%= post["comments"] %></li>
@@ -53,24 +56,12 @@
                   <p><%= post["votes"] %></p>
                 <i id="vote" class="fas fa-caret-down"></i>
               </td>
-              <td width="10%" id="votes">
+              <td width="5%" id="votes">
+                <i class="fas fa-times"></i><br>
+                <i class="fas fa-edit"></i>
               </td>
             </tr></table>
         </li>
-      <% end %>
-
-<!--
-            <td><%= post["title"] %></td>
-            <td><%= post["creation_date"] %></td>
-            <td><%= post["description"] %></td>
-            <td><%= post["location"] %></td>
-            <td><%= post["open"] %></td>
-            <td><%= post["solved"] %></td>
-            <td><%= User.find(post["user_id"]).email %></td>
-            <td><%= post["comments"] %></td>
-            <td><%= post["votes"] %></td>
--->
-
       <% end %>
     </ul>
 
