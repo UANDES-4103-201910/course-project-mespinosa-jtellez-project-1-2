@@ -8,7 +8,7 @@
 
 users = User.create([{email: "jatellez@miuandes.com", password: "123456789", name: "joaco"}, 
 	{email: "macakill@miuandes.cl", password: "123456789", name: "maca"}])
-posts = Post.create([{"title": "jaja salpica", "creation_date": "nil", "description": "y salpicó po", "location": "Santiago, Chile", "open": "1", "solved": "0", "user": users.first },
+posts = Post.create([{"title": "jaja salpica", "creation_date": "nil", "description": "y salpicó po", "location": "Santiago, Chile", "open": "0", "solved": "0", "user": users.first },
 {"title": "jaja salpica", "creation_date": "nil", "description": "y salpicó po", "location": "Santiago, Chile", "open": "1", "solved": "0", "user": users.last }])
 blacklist = Blacklist.create([{date: "nil", user: users.first}])
 dumpster = Dumpster.create([{post: posts.first, date: "nil"}])
@@ -24,3 +24,4 @@ votes = Vote.create([{user: users.first, post: posts.first, value: 1},
 	{user: users.first, post: posts.last, value: -1},
 	{user: users.last, post: posts.first, value: 1},
 	{user: users.last, post: posts.last, value: 1}])
+superadmin = Administrator.create([{superadmin: 1, geofence: geofence.first, user: users.first}])

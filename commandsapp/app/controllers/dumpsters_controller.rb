@@ -1,5 +1,6 @@
 class DumpstersController < ApplicationController
   before_action :set_dumpster, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /dumpsters
   # GET /dumpsters.json

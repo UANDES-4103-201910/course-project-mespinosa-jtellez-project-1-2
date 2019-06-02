@@ -2,14 +2,23 @@
   <table width="100%">
     <tr>
       <td width="25%">
-        <%= @profile["picture"] %>
+        <!--%= @profile["picture"] %-->
+      <% if @profile.image.url %>
+        <%= link_to @profile.image.url do %>
+          <%= image_tag @profile.image.url%>
+        <% end %>
+      <% end %>
       </td>
       <td>
         <ul class="list-inline">
-          <li id="profile-name" class="list-inline-item"><%= @profile[:user]["name"] %> </li>
-          <li id="profile-email" class="list-inline-item"><%= @profile[:user]["email"] %></li>
+          <li id="profile-name" class="list-inline-item"><%= @user[:user]["name"] %> </li>
+          <li id="profile-email" class="list-inline-item"><%= @user[:user]["email"] %></li>
+          <% if @user[:user]["id"] == session["warden.user.user.key"][0][0] %>
           <button type="button" class="btn btn-outline-secondary list-inline-item" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></i></button>
-          <button type="button" class="btn btn-secondary list-inline-item" data-toggle="modal" data-target="#adminModal"><i class="fas fa-user-cog"></i></button>
+          <% end %>
+          <% if can? :manage, @profile %>
+            <button type="button" class="btn btn-secondary list-inline-item" data-toggle="modal" data-target="#adminModal"><i class="fas fa-user-cog"></i></button>
+          <% end %>
         </ul>
         <p id="profile-location"><%= @profile["city"] %>, <%= @profile["country"] %></p>
         <hr>
@@ -40,7 +49,7 @@
   <br>
   <ul class="list-unstyled">
 
-      <% @profile[:posts].each do |post| %>
+      <% @user[:posts].each do |post| %>
 
       <%= link_to rant_path(post["id"]) do %>
         <li class="media">
@@ -84,11 +93,44 @@
         </button>
       </div>
       <div class="modal-body">
-       ...
+        <%= form_with(model: @profile, local: true) do |form| %>
+          <% if @profile.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+              <ul>
+              <% profile.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div>
+            <%= form.file_field :picture %>
+          </div>
+
+          <div class="field">
+            <%= form.label :biography %>
+            <%= form.text_area :biography %>
+          </div>
+
+          <div class="field">
+            <%= form.label :city %>
+            <%= form.text_field :city %>
+          </div>
+
+          <div class="field">
+            <%= form.label :country %>
+            <%= form.text_field :country %>
+          </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-outline-info">Save changes</button>
+        <!--button type="button" class="btn btn-outline-info">Save changes</button-->
+        <%= form.submit "Save changes", class: "btn btn-outline-info"  %>
+        <% end %>
       </div>
     </div>
   </div>

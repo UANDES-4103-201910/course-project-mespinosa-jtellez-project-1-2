@@ -1,5 +1,6 @@
 class AdministratorsController < ApplicationController
   before_action :set_administrator, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /administrators
   # GET /administrators.json
@@ -77,6 +78,8 @@ class AdministratorsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

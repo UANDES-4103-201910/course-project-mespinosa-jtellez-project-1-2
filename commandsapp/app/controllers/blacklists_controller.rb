@@ -1,5 +1,6 @@
 class BlacklistsController < ApplicationController
   before_action :set_blacklist, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /blacklists
   # GET /blacklists.json

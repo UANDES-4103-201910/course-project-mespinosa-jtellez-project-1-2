@@ -6,7 +6,7 @@
 			<td width="49.3%" id="activity-left-column">
 				<ul class="list-unstyled">
 
-	      <% @profile[:comments].each do |comment| %>
+	      <% @user[:comments].each do |comment| %>
 
 	      <p id="activity-description" class="activity-item"><%= comment[:user]["name"]%> commented <b>"<%= comment["content"]%>"</b>:</p>
 	      <%= link_to rant_path(comment[:post]["id"]) do %>
@@ -43,7 +43,7 @@
 
 			<td width="50.7%" id="activity-right-column">
 				<ul class="list-unstyled">
-				<% @profile[:votes].each do |vote| %>
+				<% @user[:votes].each do |vote| %>
 
 		      <p id="activity-description" class="activity-item"><%= vote[:user]["name"]%><b> <% if vote[:value] == 1 %> upvoted
 		      	<% else %> downvoted <% end %></b> the rant:</p>

@@ -1,12 +1,28 @@
 class ApplicationController < ActionController::Base
 	protect_from_forgery with: :exception #muy importante sacarlo
   layout proc { google_logged_in ? "aplication_registered" : "application" }
+  #layout proc { is_admin ? "aplication_administrator" : "aplication_registered" } #revisar
+
 	#before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  #load_and_authorize_resource
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.json { head :forbidden, content_type: 'text/html' }
+      format.html { redirect_to main_app.root_url, notice: exception.message }
+      format.js   { head :forbidden, content_type: 'text/html' }
+    end
+  end
 
 
-  def is_admin?
+  def is_admin_present?
   	params[:admin_scope].eql? true
+  end
+
+  def is_admin
+    if session["warden.user.user.key"]
+      if Administrator.where(user: User.find(session["warden.user.user.key"][0][0])) then true else false end
+    end
   end
 
   # GET /posts
@@ -161,7 +177,9 @@ class ApplicationController < ActionController::Base
 
     def list_posts
       post_list = []
-      posts = Post.all
+      @dumpsters = Dumpster.all
+      #posts = Post.all
+      posts = Post.where(open: 1)
       posts.each do |post|
         post_info = post.attributes
         post_info[:votes] = post_votes

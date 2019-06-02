@@ -20,8 +20,10 @@
       </div>
     </li>
     <li class="list-inline-item">
-      <%= link_to new_post_path  do%>
-        <button type="button" class="btn btn-info">New Post</button>
+      <% if can? :create, @posts %>
+        <%= link_to new_post_path  do%>
+          <button type="button" class="btn btn-info">New Post</button>
+        <% end %>
       <% end %>
     </li>            
   </ul>

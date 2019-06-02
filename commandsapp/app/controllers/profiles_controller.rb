@@ -16,7 +16,9 @@ class ProfilesController < ApplicationController
     profile_info[:comments] = list_comments
     profile_info[:votes] = list_votes
     profile_info[:user] = User.find(profile["user_id"])
-    @profile = profile_info
+    @user = profile_info
+    @profile = profile
+    #render json: {user: session}
   end
 
   # GET /profiles/new
@@ -50,15 +52,25 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
-    respond_to do |format|
-      if @profile.update(profile_params)
-        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
-        format.json { render :show, status: :ok, location: @profile }
-      else
-        format.html { render :edit }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
+    profile = profile_params
+    user = User.find(session["warden.user.user.key"][0][0])
+    profile[:user] = user
+    uploaded_io = params[:profile][:picture]
+    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+      file.write(uploaded_io.read)
+      profile[:image] = file
+      respond_to do |format|
+        if @profile.update(profile)
+          format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+          format.json { render :show, status: :ok, location: @profile }
+        else
+          format.html { render :edit }
+          format.json { render json: @profile.errors, status: :unprocessable_entity }
+        end
       end
     end
+    #render json: {profile: profile}
+    
   end
 
   # DELETE /profiles/1
@@ -78,7 +90,8 @@ class ProfilesController < ApplicationController
     profile_info[:comments] = list_comments
     profile_info[:votes] = list_votes
     profile_info[:user] = User.find(profile["user_id"])
-    @profile = profile_info
+    @user = profile_info
+    @profile = profile
 
     respond_to do |format|
       format.html #looks for views/books/index.html.erb
@@ -93,7 +106,8 @@ class ProfilesController < ApplicationController
     profile_info[:comments] = list_comments
     profile_info[:votes] = list_votes
     profile_info[:user] = User.find(profile["user_id"])
-    @profile = profile_info
+    @user = profile_info
+    @profile = profile
 
     respond_to do |format|
       format.html #looks for views/books/index.html.erb
@@ -106,7 +120,18 @@ class ProfilesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
-      @profile = Profile.find(params[:id])
+      if Profile.where(user: User.find(session["warden.user.user.key"][0][0])) == []
+        profile = Profile.new
+        profile.id = session["warden.user.user.key"][0][0]
+        profile.user_id = session["warden.user.user.key"][0][0]
+        profile.city = "Santiago"
+        profile.country = "Chile"
+        profile.save
+        @profile = Profile.find(params[:id])
+      else
+        @profile = Profile.find(params[:id])
+      end
+      
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
