@@ -1,25 +1,21 @@
 <br>
 
-<%= form_for(@comment) do |f| %>
-  <%= f.hidden_field :post_id, :value => @post.id %>
-  <%= f.text_area :content, id: "new-comment-content", class: "form-text-field"  %>
-  <br>
-  <%=  f.submit "Send", class: "btn btn-outline-info" %>
-<hr>
+<%= form_with model: Comment.new do |form| %>
+  <%= form.text_area :content, rows: 3, class: 'form-text-field', id: 'new-comment-content' %>
+  <%= form.submit 'Send', class: 'btn btn-outline-info' %>
 <% end %>
+<hr>  
 
-    <% @post[:comments].each do |comment| %>
+<% @post[:comments].each do |comment| %>
 
-    <div id="comment">
-      <div class="list-inline">
-      <%= link_to profile_path(Profile.where(user: comment[:user]["id"]).first) do %>
-        <p id="comment-author" class="list-inline-item"><%= comment[:user]["name"] %></p>
-      <% end %>
-        <p id="comment-date" class="list-inline-item"><%= comment["created_at"] %></p>
-      </div>
-      <p id="comment-content"><%= comment["content"] %></p>
-    </div>
+<div id="comment">
+  <div class="list-inline">
+  <%= link_to profile_path(Profile.where(user: comment[:user]["id"]).first) do %>
+    <p id="comment-author" class="list-inline-item"><%= comment[:user]["name"] %></p>
+  <% end %>
+    <p id="comment-date" class="list-inline-item"><%= comment["created_at"] %></p>
+  </div>
+  <p id="comment-content"><%= comment["content"] %></p>
+</div>
 
-    <% end %> 
-
-
+<% end %> 

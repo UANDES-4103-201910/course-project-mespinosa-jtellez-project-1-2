@@ -65,7 +65,14 @@
   </ul> 
 
   <div id="post_content">
+
     <br>
+    
+    <%= form_with model: Comment.new do |form| %>
+      <%= form.text_area :content, rows: 3, class: 'form-text-field', id: 'new-comment-content' %>
+      <%= form.submit 'Send', class: 'btn btn-outline-info' %>
+    <% end %>
+    <hr>  
     <% @post[:comments].each do |comment| %>
 
     <div id="comment">
