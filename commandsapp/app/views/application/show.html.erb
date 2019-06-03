@@ -24,14 +24,15 @@
           <% end %>
         </div>
         <div class="list-inline">
-          <h2 id="post-title" class="list-inline-item"><%= @post["title"] %></h1>
+          <h2 id="post-title" class="list-inline-item"><%= @post["title"] %></h2>
           <p id="post-location" class="list-inline-item">
             <i class="fas fa-globe"></i> <%= @post["location"] %>
           </p>
+        </div>
         <p id="post-description"><%= @post["description"] %></p>
       </td>
 
-      <td width="15%">
+      <td width="10%">
         <div id="post-votes">
           <i id="vote" class="fas fa-caret-up"></i>
           <p><% if @post["votes"] != 0%><%= @post["votes"] %>
@@ -40,7 +41,11 @@
           </p>
           <i id="vote" class="fas fa-caret-down"></i>
         </div>
-        </div>
+      </td>
+      <td width="5%" id="votes">
+        <i class="fas fa-times"></i><br>
+        <i class="fas fa-edit"></i><br>
+        <i class="fas fa-exclamation-circle"></i>
       </td>
     </tr>
   </table>
@@ -69,7 +74,7 @@
     <br>
     
     <%= form_with model: Comment.new do |form| %>
-      <%= form.text_area :content, rows: 3, class: 'form-text-field', id: 'new-comment-content' %>
+      <%= form.text_area :content, rows: 3, class: 'form-text-field', id: 'new-comment-content', placeholder: 'Comment this post...' %>
       <%= form.submit 'Send', class: 'btn btn-outline-info' %>
     <% end %>
     <hr>  
@@ -81,6 +86,8 @@
         <p id="comment-author" class="list-inline-item"><%= comment[:user]["name"] %></p>
       <% end %>
         <p id="comment-date" class="list-inline-item"><%= comment["created_at"] %></p>
+         <i class="fas fa-edit"></i>
+         <i class="fas fa-times"></i>
       </div>
       <p id="comment-content"><%= comment["content"] %></p>
     </div>

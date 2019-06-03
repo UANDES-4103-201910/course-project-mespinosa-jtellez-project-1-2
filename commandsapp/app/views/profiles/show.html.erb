@@ -51,18 +51,19 @@
 
       <% @user[:posts].each do |post| %>
 
-      <%= link_to rant_path(post["id"]) do %>
         <li class="media">
-          <img src="..." class="align-self-center mr-3" alt="...">
           <div class="media-body">
             <table width="100%"><tr width=100%>
               <td width="90%" id="post">
+
+                <%= link_to rant_path(post["id"]) do %>
                 <ul class="list-inline">
                   <li class="list-inline-item post-title"><%= post["title"] %></li>
-                  <!--li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li-->
                 </ul>
+
+               <% end %>
                 <ul class="list-inline">
-                  <li class="list-inline-item post-info"><%= post["creation_date"] %></li>
+                  <li class="list-inline-item post-info"><%= post["created_at"] %></li>
                   <li class="list-inline-item post-info">Comments: <%= post["comments"] %></li>
                 </ul>
               </td>
@@ -71,11 +72,13 @@
                   <p><%= post["votes"] %></p>
                 <i id="vote" class="fas fa-caret-down"></i>
               </td>
-              <td width="10%" id="votes">
+              <td width="5%" id="votes">
+                <i class="fas fa-times"></i><br>
+                <i class="fas fa-edit"></i><br>
+                <i class="fas fa-exclamation-circle"></i>
               </td>
             </tr></table>
         </li>
-      <% end %>
 
       <% end %>
     </ul>
@@ -106,24 +109,35 @@
             </div>
           <% end %>
 
+          <div class="field">
+            Name<br>
+            <%= form.text_field :name, class: 'form-text-field' %>
+          </div><br>
+
           <div>
-            <%= form.file_field :picture %>
-          </div>
+            <div class="list-inline-item custom-file">
+              <%= form.file_field :picture, class: 'custom-file-input' %>
+              <%= form.label :picture, class: 'custom-file-label' %>
+            </div>
+          </div><br>
 
           <div class="field">
-            <%= form.label :biography %>
-            <%= form.text_area :biography %>
+            <%= form.label :biography %><br>
+            <%= form.text_area :biography, class: 'form-text-field form-control' %>
           </div>
+          <hr>
+          <ul class="list-inline">
+            <div class="field list-inline-item">
+              <%= form.label :city %><br>
+              <%= form.text_field :city, class: 'form-text-field' %>
+            </div>
+            <div class="field list-inline-item">
+              <%= form.label :country %><br>
+              <%= form.text_field :country, class: 'form-text-field' %>
+            </div>
+          </ul>
+          
 
-          <div class="field">
-            <%= form.label :city %>
-            <%= form.text_field :city %>
-          </div>
-
-          <div class="field">
-            <%= form.label :country %>
-            <%= form.text_field :country %>
-          </div>
 
       </div>
       <div class="modal-footer">
