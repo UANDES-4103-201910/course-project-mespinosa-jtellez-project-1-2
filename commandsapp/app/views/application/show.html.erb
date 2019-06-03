@@ -43,8 +43,12 @@
         </div>
       </td>
       <td width="5%" id="votes">
-        <i class="fas fa-times"></i><br>
+      <% if @post[:user]["id"] == session["warden.user.user.key"][0][0] %>
+        <%= link_to post_path(@post["id"]), method: :delete do %>
+          <i class="fas fa-times"></i>
+        <% end %><br>
         <i class="fas fa-edit"></i><br>
+      <% end %>
         <i class="fas fa-exclamation-circle"></i>
       </td>
     </tr>
@@ -86,8 +90,12 @@
         <p id="comment-author" class="list-inline-item"><%= comment[:user]["name"] %></p>
       <% end %>
         <p id="comment-date" class="list-inline-item"><%= comment["created_at"] %></p>
-         <i class="fas fa-edit"></i>
-         <i class="fas fa-times"></i>
+        <% if comment[:user]["id"] == session["warden.user.user.key"][0][0] %>
+          <i class="fas fa-edit"></i>
+          <%= link_to comments_path(comment[:id]), method: :delete do %>
+            <i class="fas fa-times"></i>
+          <% end %>
+        <% end %>
       </div>
       <p id="comment-content"><%= comment["content"] %></p>
     </div>

@@ -88,9 +88,12 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
+    @post = Post.find(params[:id])
     @post.destroy
-    @posts = Post.all
-    render json: {posts: @posts}
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Rant was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   def comments
