@@ -33,11 +33,18 @@ class AdministratorsController < ApplicationController
   # POST /administrators
   # POST /administrators.json
   def create
-    @administrator = Administrator.new(administrator_params)
-
+    @user = User.find(params[:id])
+    user = @user.attributes
+    user["role"] = 2
+    @user.update!(user)
+    admin_params = Administrator.new.attributes
+    admin_params["superadmin"] = 0
+    admin_params["user"] = @user
+    admin_params["geofence"] = Geofence.first
+    @administrator = Administrator.new(admin_params)
     respond_to do |format|
       if @administrator.save
-        format.html { redirect_to @administrator, notice: 'Administrator was successfully created.' }
+        format.html { redirect_to administrators_path, notice: 'Administrator was successfully created.' }
         format.json { render :show, status: :created, location: @administrator }
       else
         format.html { render :new }

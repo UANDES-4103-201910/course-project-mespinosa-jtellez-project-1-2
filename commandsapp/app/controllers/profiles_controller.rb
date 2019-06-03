@@ -56,18 +56,30 @@ class ProfilesController < ApplicationController
     user = User.find(session["warden.user.user.key"][0][0])
     profile[:user] = user
     uploaded_io = params[:profile][:picture]
-    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-      file.write(uploaded_io.read)
-      profile[:image] = file
-      respond_to do |format|
-        if @profile.update(profile)
-          format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
-          format.json { render :show, status: :ok, location: @profile }
-        else
-          format.html { render :edit }
-          format.json { render json: @profile.errors, status: :unprocessable_entity }
+    if not uploaded_io.nil?
+      File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+        profile[:image] = file
+        respond_to do |format|
+          if @profile.update(profile)
+            format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+            format.json { render :show, status: :ok, location: @profile }
+          else
+            format.html { render :edit }
+            format.json { render json: @profile.errors, status: :unprocessable_entity }
+          end
         end
       end
+    else
+      respond_to do |format|
+          if @profile.update(profile)
+            format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+            format.json { render :show, status: :ok, location: @profile }
+          else
+            format.html { render :edit }
+            format.json { render json: @profile.errors, status: :unprocessable_entity }
+          end
+        end
     end
     #render json: {profile: profile}
     
@@ -97,7 +109,7 @@ class ProfilesController < ApplicationController
       format.html #looks for views/books/index.html.erb
       format.js {render layout: false}  #looks for views/books/index.js.erb
     end
-  end
+  end 
 
   def rants
     profile = Profile.find(params[:id])
