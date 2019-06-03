@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 2019_06_01_035608) do
     t.integer "role"
     t.string "provider"
     t.string "uid"
+    t.datetime "lastAccess"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
