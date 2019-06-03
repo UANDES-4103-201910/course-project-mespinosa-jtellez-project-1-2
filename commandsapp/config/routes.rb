@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   get '/dumpsters/rants(.:format)', to: 'dumpsters#dumpster', as: "dumpster_rants"
   get '/dumpsters/users(.:format)', to: 'dumpsters#blacklist', as: "dumpster_users"
 
+  get '/search', to: 'application#search', as: "search"
+
   scope '/admin', admin_scope: true do
     #get '/profiles/:id/:String(.:format)', to: 'profiles#show'
     get "/admin/profiles/:id(.:format)", to: "profiles_admin#show", as: "profile_admin_show"

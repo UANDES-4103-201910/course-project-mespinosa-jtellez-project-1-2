@@ -135,6 +135,14 @@ class ApplicationController < ActionController::Base
     #@post = post_info
   end
 
+  def search
+    if params[:name]
+      @users = User.where('name LIKE ?', "%#{params[:name]}%")
+    else
+      @users = User.all
+    end
+  end
+
   def show_file
     @post = Post.find(params[:id])
   end
