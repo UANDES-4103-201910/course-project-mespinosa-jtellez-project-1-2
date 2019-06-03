@@ -83,9 +83,41 @@ class UsersController < ApplicationController
   def destroy_selected_user
     @user = User.find(params[:id])
     @posts = Post.where(user: @user)
-    @posts.each do |post|
-      post.destroy
+    if not @posts.nil?
+      @posts.each do |post|
+        comments = Comment.where(post: post)
+        if not comments.nil?
+          comments.each do |comment|
+            comment.destroy
+          end
+        end
+        votes = Vote.where(post: post)
+        if not votes.nil?
+          votes.each do |vote|
+            vote.destroy
+          end
+        end
+        post.destroy
+      end
     end
+    @administrator = Administrator.where(user: @user)
+    if not @administrator.nil?
+      @administrator.first.destroy
+    end
+    @comments = Comment.where(user: @user)
+    if not @comments.nil?
+      @comments.each do |comment|
+        comment.destroy
+      end
+    end
+    @votes = Vote.where(user: @user)
+    if not @votes.nil?
+      @votes.each do |vote|
+        vote.destroy
+      end
+    end
+    @profile = Profile.find(params[:id])
+    @profile.destroy
     @user.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'User was successfully destroyed.' }
