@@ -9,7 +9,7 @@
     <hr>
 
   <ul class="list-inline">
-    <li class="list-inline-item">
+    <!--li class="list-inline-item">
       <div class="input-group mb-3">
         <select class="custom-select" id="inputGroupSelect01">
           <option selected>Filter by...</option>
@@ -18,7 +18,7 @@
           <option value="3">Most Commented</option>
         </select>
       </div>
-    </li>
+    </li-->
     <li class="list-inline-item">
       <% if can? :create, @posts %>
         <%= link_to new_post_path  do%>
@@ -47,7 +47,7 @@
               <% end %>
 
                 <ul class="list-inline">
-                  <li class="list-inline-item post-info"><%= post["creation_date"] %></li>
+                  <li class="list-inline-item post-info"><%= post["created_at"] %></li>
                   <li class="list-inline-item post-info">Comments: <%= post["comments"] %></li>
                 </ul>
               </td>
