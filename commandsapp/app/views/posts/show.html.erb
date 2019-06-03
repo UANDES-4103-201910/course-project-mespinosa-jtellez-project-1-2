@@ -11,6 +11,11 @@
 
       <td id="post-author-info" width="15%"><%= link_to profile_path(@post[:profile]["id"]) do %>
         <%= @post[:profile]["picture"] %>
+        <% if @post[:profile].image.url %>
+          <%= link_to @post[:profile].image.url do %>
+            <%= image_tag @profile.image.url%>
+          <% end %>
+        <% end %>
         <p id="post-author-name"><%= @post[:user]["name"] %></p>
       <% end %></td>
 

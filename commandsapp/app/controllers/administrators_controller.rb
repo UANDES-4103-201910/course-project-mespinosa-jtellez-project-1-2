@@ -70,8 +70,15 @@ class AdministratorsController < ApplicationController
     end
   end
 
-  def destroy_multiple
-    Administrator.destroy(params[:administrators])
+  def destroy_selected
+    params["administrators"].each do |admin|
+      @administrator = Administrator.find(admin.to_i)
+      @user = User.find(@administrator.user_id)
+      user = @user.attributes
+      user["role"] = 1
+      @user.update(user)
+      @administrator.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to administrators_path }

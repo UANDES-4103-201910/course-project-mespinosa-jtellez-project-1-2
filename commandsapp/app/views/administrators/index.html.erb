@@ -12,7 +12,7 @@
 
       <table width="100%"><tr>
 
-        <td width="5%"><%= check_box_tag "administrators[]", administrator[:id] %></td>
+        <td width="5%"><%= check_box_tag "administrators[]", administrator["id"] %></td>
 
         <%= link_to profile_path(Profile.where(user: administrator[:user]["id"]).first) do %>
         <td class="media" width="95%">

@@ -30,8 +30,8 @@ Rails.application.routes.draw do
 
   get '/rant/:id/file_selected', to: 'application#show_file', as: "file"
   
-  get '/dumpsters/rants', to: 'dumpsters#dumpster', as: "dumpster_rants"
-  get '/dumpsters/users', to: 'dumpsters#blacklist', as: "dumpster_users"
+  get '/dumpsters/rants(.:format)', to: 'dumpsters#dumpster', as: "dumpster_rants"
+  get '/dumpsters/users(.:format)', to: 'dumpsters#blacklist', as: "dumpster_users"
 
   scope '/admin', admin_scope: true do
     #get '/profiles/:id/:String(.:format)', to: 'profiles#show'

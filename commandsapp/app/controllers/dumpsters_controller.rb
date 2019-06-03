@@ -6,7 +6,7 @@ class DumpstersController < ApplicationController
   # GET /dumpsters.json
   def index
     @dumpsters = list_posts
-
+    @blacklists = Blacklist.all
   end
 
   # GET /dumpsters/1
@@ -63,6 +63,24 @@ class DumpstersController < ApplicationController
     end
   end
 
+  def dumpster
+    @dumpsters = list_posts
+    @blacklists = Blacklist.all
+    respond_to do |format|
+      format.html #looks for views/books/index.html.erb
+      format.js {render layout: false}  #looks for views/books/index.js.erb
+    end
+  end
+
+  def blacklist
+    @dumpsters = list_posts
+    @blacklists = Blacklist.all
+    respond_to do |format|
+      format.html #looks for views/books/index.html.erb
+      format.js {render layout: false}  #looks for views/books/index.js.erb
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_dumpster
@@ -98,4 +116,5 @@ class DumpstersController < ApplicationController
       end
       post_list
     end
+
 end

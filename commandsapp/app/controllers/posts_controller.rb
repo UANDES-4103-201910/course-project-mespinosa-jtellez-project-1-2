@@ -34,23 +34,28 @@ class PostsController < ApplicationController
     #upload
     #render json: {params: params}
     post_params_new = post_params
-    user = User.where(email: post_params[:user]).first
+    user = User.find(session["warden.user.user.key"][0][0])
     post_params_new[:user] = user
     post = Post.new(post_params_new)
     uploaded_io = params[:post][:file]
-    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-      file.write(uploaded_io.read)
-      post.avatar = file
+    if not uploaded_io.nil?
+      File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+        post.avatar = file
+      end
     end
     uploaded_io = params[:post][:picture]
-    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-      file.write(uploaded_io.read)
-      post.image = file
+    if not uploaded_io.nil?
+      File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+        post.image = file
+      end
     end
+    post.open = 1
     @post = post
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to rant_path(@post["id"]), notice: 'Post was successfully created.' }
         format.json { render :json }
         #render json: @post, status: :created, location: @post
       else
