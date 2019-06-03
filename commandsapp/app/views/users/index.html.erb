@@ -4,7 +4,7 @@
 
 <hr>
 <ul class="list-inline">
-  <li class="list-inline-item">
+  <!--li class="list-inline-item">
     <div class="input-group mb-3">
       <select class="custom-select" id="inputGroupSelect01">
         <option selected>Filter by...</option>
@@ -13,7 +13,7 @@
         <option value="3">Most recent</option>
       </select>
     </div>
-  </li>
+  </li-->
   <li class="list-inline-item">
     <%= link_to new_user_path  do%>
       <button type="button" class="btn btn-info">New User</button>
@@ -35,7 +35,7 @@
               <li class="list-inline-item post-info"><%= user["email"] %></li>
             </ul>
             <ul class="list-inline">
-              <li class="list-inline-item post-info"><%= user["creation_date"] %></li>
+              <li class="list-inline-item post-info"><%= user["created_at"] %></li>
             </ul>
           </td>
           <td width="10%" id="votes">
