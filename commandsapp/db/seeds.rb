@@ -8,8 +8,8 @@
 
 users = User.create([{email: "jatellez@miuandes.com", password: "123456789", name: "joaco", role: 1}, 
 	{email: "macakill@miuandes.cl", password: "123456789", name: "maca", role: 1}])
-posts = Post.create([{"title": "jaja salpica", "creation_date": "nil", "description": "y salpicó po", "location": "Santiago, Chile", "open": "0", "solved": "0", "user": users.first },
-{"title": "jaja salpica", "creation_date": "nil", "description": "y salpicó po", "location": "Santiago, Chile", "open": "1", "solved": "0", "user": users.last }])
+posts = Post.create([{"title": "rant 1", "creation_date": "nil", "description": "first description", "location": "Santiago, Chile", "open": "0", "solved": "0", "user": users.first },
+{"title": "rant 2", "creation_date": "nil", "description": "rant", "location": "Santiago, Chile", "open": "1", "solved": "0", "user": users.last }])
 blacklist = Blacklist.create([{date: "nil", user: users.first}])
 dumpster = Dumpster.create([{post: posts.first, date: "nil"}])
 geofence = Geofence.create([{location: "Santiago"}])
