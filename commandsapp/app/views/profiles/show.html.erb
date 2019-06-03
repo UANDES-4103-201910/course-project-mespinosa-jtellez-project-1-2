@@ -187,7 +187,11 @@
           <% end %>
           
           <li class="list-inline-item"><button class="btn btn-secondary">Change password</button></li>
-          <li class="list-inline-item"><button class="btn btn-danger">Delete user</button></li>
+          <li class="list-inline-item">
+            <%= link_to destroy_selected_user_path, method: :delete do %>
+              <button class="btn btn-danger">Delete user</button>
+            <% end %>
+          </li>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>

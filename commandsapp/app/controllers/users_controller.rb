@@ -80,6 +80,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy_selected_user
+    @user = User.find(params[:id])
+    @posts = Post.where(user: @user)
+    @posts.each do |post|
+      post.destroy
+    end
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'User was successfully destroyed.' }
+      format.json { head :json }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
