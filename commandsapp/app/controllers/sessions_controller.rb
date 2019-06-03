@@ -28,6 +28,10 @@ class SessionsController < ApplicationController
 	end
 
 	def destroy
+		@user = User.find(session["warden.user.user.key"][0][0])
+		user = @user.attributes
+		user["lastAccess"] = DateTime.now
+		@user.update_attributes(user)
 		@current_user = session[:current_user_id] = nil
 		session["warden.user.user.key"][0][0] = 0
     	redirect_to root_url

@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.integer :role
       t.string :provider
       t.string :uid
+      t.datetime :lastAccess
 
       t.timestamps
     end
