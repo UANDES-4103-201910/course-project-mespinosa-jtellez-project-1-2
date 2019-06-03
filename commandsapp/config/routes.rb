@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :profiles
 
   delete '/administrators', to: 'administrators#destroy_selected', as: "administrators_destroy_selected"
+  post '/profiles/:id', to:'administrators#create', as: "create_admin"
   resources :administrators
   resources :users
   resources :geofences

@@ -178,7 +178,14 @@
           </li>
         </ul>
         <ul class="list-inline">
-          <li class="list-inline-item"><button class="btn btn-secondary">Make Admin</button></li>
+          <% if @user[:user]["role"] == 1 %>
+            <li class="list-inline-item">
+              <%= link_to create_admin_path, method: :post do %>
+                <button class="btn btn-secondary">Make Admin</button>
+              <% end %>
+            </li>
+          <% end %>
+          
           <li class="list-inline-item"><button class="btn btn-secondary">Change password</button></li>
           <li class="list-inline-item"><button class="btn btn-danger">Delete user</button></li>
       </div>
