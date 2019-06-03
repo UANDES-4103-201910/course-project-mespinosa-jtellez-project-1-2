@@ -1,0 +1,26 @@
+<ul class="list-unstyled">
+
+  <% @users.each do |user| %>
+  <%= link_to profile_path(user["id"]) do %>
+    <li class="media">
+      <img src="..." class="align-self-center mr-3" alt="...">
+      <div class="media-body">
+        <table width="100%"><tr width=100%>
+          <td width="100%" id="post">
+            <ul class="list-inline">
+              <li class="list-inline-item post-title"><%= user["name"] %></li>
+              <li class="list-inline-item post-info"><%= user["email"] %></li>
+            </ul>
+            <ul class="list-inline">
+              <li class="list-inline-item post-info"><%= user["creation_date"] %></li>
+            </ul>
+          </td>
+          <td width="10%" id="votes">
+          </td>
+        </tr></table>
+    </li>
+  <% end %>
+
+
+  <% end %>
+</ul>
