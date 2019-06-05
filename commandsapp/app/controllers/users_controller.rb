@@ -97,6 +97,12 @@ class UsersController < ApplicationController
             vote.destroy
           end
         end
+        dumpsters = Dumpster.where(post: post)
+        if not dumpsters.nil?
+          dumpsters.each do |dumpster|
+            dumpster.destroy
+          end
+        end
         post.destroy
       end
     end
@@ -118,6 +124,10 @@ class UsersController < ApplicationController
     end
     @profile = Profile.find(params[:id])
     @profile.destroy
+    @blacklist.where(user: @user)
+    if not @blacklist.nil?
+      @blacklist.destroy
+    end
     @user.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'User was successfully destroyed.' }

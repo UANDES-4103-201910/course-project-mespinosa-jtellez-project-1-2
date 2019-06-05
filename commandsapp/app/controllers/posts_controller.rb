@@ -89,6 +89,24 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post = Post.find(params[:id])
+    @comments = Comment.where(post: @post)
+    if not @comments.nil?
+      @comments.each do |comment|
+        comment.destroy
+      end
+    end
+    @votes = Vote.where(post: @post)
+    if not @votes.nil?
+      @votes.each do |vote|
+        vote.destroy
+      end
+    end
+    @dumpsters = Dumpster.where(post: @post)
+    if not @dumpsters.nil?
+      @dumpsters.each do |dumpster|
+        dumpster.destroy
+      end
+    end
     @post.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Rant was successfully destroyed.' }

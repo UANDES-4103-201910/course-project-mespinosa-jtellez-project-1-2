@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-users = User.create([{email: "jatellez@miuandes.com", password: "123456789", name: "joaco", role: 1}, 
-	{email: "macakill@miuandes.cl", password: "123456789", name: "maca", role: 1}])
+users = User.create([{email: "jatellez@miuandes.com", password: "123456789", name: "joaco", role: 2}, 
+	{email: "macakill@miuandes.cl", password: "123456789", name: "maca", role: 2}])
 posts = Post.create([{"title": "rant 1", "creation_date": "nil", "description": "first description", "location": "Santiago, Chile", "open": "0", "solved": "0", "user": users.first },
 {"title": "rant 2", "creation_date": "nil", "description": "rant", "location": "Santiago, Chile", "open": "1", "solved": "0", "user": users.last }])
 blacklist = Blacklist.create([{date: "nil", user: users.first}])
