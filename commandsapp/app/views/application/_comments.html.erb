@@ -15,7 +15,7 @@
   <% end %>
     <p id="comment-date" class="list-inline-item"><%= comment["created_at"] %></p>
   <% if comment[:user]["id"] == session["warden.user.user.key"][0][0] %>
-    <%= link_to edit_comment_path(comment["id"]), method: :delete do %>
+    <%= link_to edit_comment_path(comment["id"]) do %>
       <i class="fas fa-edit"></i>
     <% end %>
     <%= link_to comment_path(comment["id"]), method: :delete do %>
