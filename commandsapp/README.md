@@ -16,6 +16,7 @@ Summary of implemented features:
 - Delete admin
 - View user profile
 - Edit profile
+- Edit comment
 - View posts
 - Delete post
 - View publisher profile
@@ -25,7 +26,7 @@ Summary of implemented features:
 
 Pending:
 
-- Edit post and comment
+- Edit post
 - Follow and vote posts
 - Tag user
 
