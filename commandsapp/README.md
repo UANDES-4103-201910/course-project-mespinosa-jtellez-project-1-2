@@ -18,6 +18,7 @@ Summary of implemented features:
 - Edit profile
 - Edit comment
 - View posts
+- Edit post
 - Delete post
 - View publisher profile
 - Mark as inappropriate
@@ -26,7 +27,6 @@ Summary of implemented features:
 
 Pending:
 
-- Edit post
 - Follow and vote posts
 - Tag user
 

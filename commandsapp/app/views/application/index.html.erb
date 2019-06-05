@@ -57,11 +57,13 @@
                 <i id="vote" class="fas fa-caret-down"></i>
               </td>
               <td width="5%" id="votes">
-                 <% if post["user_id"] == session["warden.user.user.key"][0][0] %>
-                <%= link_to post_path(post["id"]), method: :delete do %>
-                  <i class="fas fa-times"></i>
-                <% end %><br>
-                <i class="fas fa-edit"></i><br>
+                <% if post["user_id"] == session["warden.user.user.key"][0][0] %>
+                  <%= link_to post_path(post["id"]), method: :delete do %>
+                    <i class="fas fa-times"></i>
+                  <% end %><br>
+                  <%= link_to edit_post_path(post["id"]) do %>
+                    <i class="fas fa-edit"></i><br>
+                  <% end %>
                 <% end %>
                 <i class="fas fa-exclamation-circle"></i>
               </td>

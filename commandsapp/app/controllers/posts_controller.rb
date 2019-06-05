@@ -70,19 +70,75 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1.json
   def update
     post_params_new = post_params
-    user = User.where(email: post_params[:user]).first
+    user = User.find(session["warden.user.user.key"][0][0])
     post_params_new[:user] = user
-      #respond_to do |format|
-    if @post.update(post_params_new)
-      #format.html { redirect_to @user, notice: 'User was successfully updated.' }
-      #format.json { render json: {user: @user} }
-      render json: @post
+    uploaded_io = params[:post][:file]
+    uploaded_io2 = params[:post][:picture]
+    if not uploaded_io.nil?
+      File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+        post_params_new[:avatar] = file
+        if not uploaded_io2.nil?
+          File.open(Rails.root.join('public', 'uploads', uploaded_io2.original_filename), 'wb') do |file|
+            file.write(uploaded_io2.read)
+            post_params_new[:image] = file
+            respond_to do |format|
+              if @post.update(post_params_new)
+                format.html { redirect_to rant_path(@post.id), notice: 'User was successfully updated.' }
+                format.json { render json: {user: @post} }
+                #render json: @post
+              else
+                format.html { render :edit }
+                format.json { render json: @post.errors, status: :unprocessable_entity }
+                #render json: @post.errors, status: :unprocessable_entity
+              end
+            end
+          end
+        else
+          respond_to do |format|
+            if @post.update(post_params_new)
+              format.html { redirect_to rant_path(@post.id), notice: 'User was successfully updated.' }
+              format.json { render json: {user: @post} }
+              #render json: @post
+            else
+              format.html { render :edit }
+              format.json { render json: @post.errors, status: :unprocessable_entity }
+              #render json: @post.errors, status: :unprocessable_entity
+            end
+          end
+        end
+      end
+
+    elsif not uploaded_io2.nil?
+      File.open(Rails.root.join('public', 'uploads', uploaded_io2.original_filename), 'wb') do |file|
+        file.write(uploaded_io2.read)
+        post_params_new[:image] = file
+        respond_to do |format|
+          if @post.update(post_params_new)
+            format.html { redirect_to rant_path(@post.id), notice: 'User was successfully updated.' }
+            format.json { render json: {user: @post} }
+            #render json: @post
+          else
+            format.html { render :edit }
+            format.json { render json: @post.errors, status: :unprocessable_entity }
+            #render json: @post.errors, status: :unprocessable_entity
+          end
+        end
+      end
+    
     else
-      #format.html { render :edit }
-      #format.json { render json: @user.errors, status: :unprocessable_entity }
-      render json: @post.errors, status: :unprocessable_entity
+      respond_to do |format|
+        if @post.update(post_params_new)
+          format.html { redirect_to rant_path(@post.id), notice: 'User was successfully updated.' }
+          format.json { render json: {user: @post} }
+          #render json: @post
+        else
+          format.html { render :edit }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+          #render json: @post.errors, status: :unprocessable_entity
+        end
+      end
     end
-    #end
   end
 
   # DELETE /posts/1
