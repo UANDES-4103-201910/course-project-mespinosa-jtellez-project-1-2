@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+  delete '/profiles/:id', to:'users#destroy_selected_user', as: "destroy_selected_user"
   resources :dumpsters
   resources :comments
   resources :flags
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
   delete '/administrators', to: 'administrators#destroy_selected', as: "administrators_destroy_selected"
 
   post '/profiles/:id', to:'administrators#create', as: "create_admin"
+
   resources :administrators
   resources :users
   resources :geofences

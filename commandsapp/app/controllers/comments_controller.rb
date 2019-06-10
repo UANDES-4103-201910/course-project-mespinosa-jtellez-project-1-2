@@ -40,9 +40,13 @@ class CommentsController < ApplicationController
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
   def update
+    c_params = comment_params
+    c_params[:user] = User.find(session["warden.user.user.key"][0][0])
+    comment = Comment.find(params[:id])
+    c_params[:post] = Post.find(comment.post.id)
     respond_to do |format|
-      if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
+      if @comment.update(c_params)
+        format.html { redirect_to rant_path(Post.find(comment.post.id)), notice: 'Comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit }
@@ -55,9 +59,10 @@ class CommentsController < ApplicationController
   # DELETE /comments/1.json
   def destroy
     @comment = Comment.find(params[:id])
+    @post = Post.find(@comment.post.id)
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to rant_path(@post.id), notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

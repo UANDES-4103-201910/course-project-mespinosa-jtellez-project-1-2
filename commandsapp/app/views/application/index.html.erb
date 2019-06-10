@@ -33,12 +33,40 @@
         <table width="100%"><tr width=100%>
           <td width="90%" id="post">
 
+<<<<<<< HEAD
           <%= link_to rant_path(post["id"]) do %>
             <ul class="list-inline">
               <li class="list-inline-item post-title"><%= post["title"] %></li>
               <li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li>
             </ul>
           <% end %>
+=======
+                <ul class="list-inline">
+                  <li class="list-inline-item post-info"><%= post["created_at"] %></li>
+                  <li class="list-inline-item post-info">Comments: <%= post["comments"] %></li>
+                </ul>
+              </td>
+              <td width="5%" id="votes">
+                <i id="vote" class="fas fa-caret-up"></i>
+                  <p><%= post["votes"] %></p>
+                <i id="vote" class="fas fa-caret-down"></i>
+              </td>
+              <td width="5%" id="votes">
+                <% if post["user_id"] == session["warden.user.user.key"][0][0] %>
+                  <%= link_to post_path(post["id"]), method: :delete do %>
+                    <i class="fas fa-times"></i>
+                  <% end %><br>
+                  <%= link_to edit_post_path(post["id"]) do %>
+                    <i class="fas fa-edit"></i><br>
+                  <% end %>
+                <% end %>
+                <i class="fas fa-exclamation-circle"></i>
+              </td>
+            </tr></table>
+        </li>
+      <% end %>
+    </ul>
+>>>>>>> 950397e1fbbe75a268c75dcf23a1a3790f90263b
 
             <ul class="list-inline">
               <li class="list-inline-item post-info"><%= post["created_at"] %></li>

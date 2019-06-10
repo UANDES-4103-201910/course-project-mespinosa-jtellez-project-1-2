@@ -70,25 +70,99 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1.json
   def update
     post_params_new = post_params
-    user = User.where(email: post_params[:user]).first
+    user = User.find(session["warden.user.user.key"][0][0])
     post_params_new[:user] = user
-      #respond_to do |format|
-    if @post.update(post_params_new)
-      #format.html { redirect_to @user, notice: 'User was successfully updated.' }
-      #format.json { render json: {user: @user} }
-      render json: @post
+    uploaded_io = params[:post][:file]
+    uploaded_io2 = params[:post][:picture]
+    if not uploaded_io.nil?
+      File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+        post_params_new[:avatar] = file
+        if not uploaded_io2.nil?
+          File.open(Rails.root.join('public', 'uploads', uploaded_io2.original_filename), 'wb') do |file|
+            file.write(uploaded_io2.read)
+            post_params_new[:image] = file
+            respond_to do |format|
+              if @post.update(post_params_new)
+                format.html { redirect_to rant_path(@post.id), notice: 'User was successfully updated.' }
+                format.json { render json: {user: @post} }
+                #render json: @post
+              else
+                format.html { render :edit }
+                format.json { render json: @post.errors, status: :unprocessable_entity }
+                #render json: @post.errors, status: :unprocessable_entity
+              end
+            end
+          end
+        else
+          respond_to do |format|
+            if @post.update(post_params_new)
+              format.html { redirect_to rant_path(@post.id), notice: 'User was successfully updated.' }
+              format.json { render json: {user: @post} }
+              #render json: @post
+            else
+              format.html { render :edit }
+              format.json { render json: @post.errors, status: :unprocessable_entity }
+              #render json: @post.errors, status: :unprocessable_entity
+            end
+          end
+        end
+      end
+
+    elsif not uploaded_io2.nil?
+      File.open(Rails.root.join('public', 'uploads', uploaded_io2.original_filename), 'wb') do |file|
+        file.write(uploaded_io2.read)
+        post_params_new[:image] = file
+        respond_to do |format|
+          if @post.update(post_params_new)
+            format.html { redirect_to rant_path(@post.id), notice: 'User was successfully updated.' }
+            format.json { render json: {user: @post} }
+            #render json: @post
+          else
+            format.html { render :edit }
+            format.json { render json: @post.errors, status: :unprocessable_entity }
+            #render json: @post.errors, status: :unprocessable_entity
+          end
+        end
+      end
+    
     else
-      #format.html { render :edit }
-      #format.json { render json: @user.errors, status: :unprocessable_entity }
-      render json: @post.errors, status: :unprocessable_entity
+      respond_to do |format|
+        if @post.update(post_params_new)
+          format.html { redirect_to rant_path(@post.id), notice: 'User was successfully updated.' }
+          format.json { render json: {user: @post} }
+          #render json: @post
+        else
+          format.html { render :edit }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+          #render json: @post.errors, status: :unprocessable_entity
+        end
+      end
     end
-    #end
   end
 
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
     @post = Post.find(params[:id])
+    @comments = Comment.where(post: @post)
+    if not @comments.nil?
+      @comments.each do |comment|
+        comment.destroy
+      end
+    end
+    @votes = Vote.where(post: @post)
+    if not @votes.nil?
+      @votes.each do |vote|
+        vote.destroy
+      end
+    end
+    @dumpsters = Dumpster.where(post: @post)
+    if not @dumpsters.nil?
+      @dumpsters.each do |dumpster|
+        dumpster.destroy
+      end
+    end
     @post.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Rant was successfully destroyed.' }
