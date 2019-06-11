@@ -20,7 +20,7 @@
 	                  <li class="list-inline-item post-info"><%= comment[:user]["email"] %></li>
 	                </ul>
 	                <ul class="list-inline">
-	                  <li class="list-inline-item post-info"><%= comment[:post]["creation_date"] %></li>
+	                  <li class="list-inline-item post-info"><%= comment[:post]["created_at"] %></li>
 	                  <li class="list-inline-item post-info">Comments: <%= comment[:post]["comments"] %></li>
 	                </ul>
 	              </td>
@@ -58,7 +58,7 @@
 		                  <li class="list-inline-item post-info"><%= vote[:user]["email"] %></li>
 		                </ul>
 		                <ul class="list-inline">
-		                  <li class="list-inline-item post-info"><%= vote[:post]["creation_date"] %></li>
+		                  <li class="list-inline-item post-info"><%= vote[:post]["created_at"] %></li>
 		                  <li class="list-inline-item post-info">Comments: <%= vote[:post]["comments"] %></li>
 		                </ul>
 		              </td>

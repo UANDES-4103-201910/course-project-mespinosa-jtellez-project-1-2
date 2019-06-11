@@ -10,8 +10,11 @@
       </ul>
     </div>
   <% end %>
+  <%= form.hidden_field :post, :value => @post["id"] %>
 
+  <%= form.text_area :comment, class: "form-text-field", size: "100x5", placeholder: "Tell us your reasons..." %>
+  <br><br>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Send', class: 'btn btn-outline-info' %>
   </div>
 <% end %>
