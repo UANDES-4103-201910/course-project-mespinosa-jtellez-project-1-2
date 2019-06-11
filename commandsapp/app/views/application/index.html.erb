@@ -43,10 +43,14 @@
             </ul>
           </td>
           <td width="5%" id="votes">
-            <i id="vote" class="fas fa-caret-up"></i>
-              <p><%= post["votes"] %></p>
-            <i id="vote" class="fas fa-caret-down"></i>
-          </td>
+                <%= link_to upvote_path(post["id"]) do %>
+                  <i id="vote" class="fas fa-caret-up"></i>
+                <% end %>
+                <p><%= post[:votes] %></p>
+                <%= link_to downvote_path(post["id"]) do %>
+                  <i id="vote" class="fas fa-caret-down"></i>
+                <% end %>
+              </td>
           <td width="5%" id="votes">
             <% if post["user_id"] == session["warden.user.user.key"][0][0] %>
               <%= link_to post_path(post["id"]), method: :delete do %>
