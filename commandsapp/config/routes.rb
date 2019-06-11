@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   delete '/blacklists', to: 'blacklists#destroy_selected', as: "blacklist_destroy_selected"
   delete '/dumpsters', to: 'dumpsters#destroy_selected', as: "dumpster_destroy_selected"
 
-
   post '/profiles/:id', to:'administrators#create', as: "create_admin"
 
   resources :administrators

@@ -17,6 +17,7 @@ class DumpstersController < ApplicationController
   # GET /dumpsters/new
   def new
     @dumpster = Dumpster.new
+    @post = Post.find(params[:post])
   end
 
   # GET /dumpsters/1/edit
