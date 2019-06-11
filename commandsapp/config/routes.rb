@@ -38,6 +38,9 @@ Rails.application.routes.draw do
   get '/rant/:id/file_selected', to: 'application#show_file', as: "file"
   get '/search', to: 'application#search', as: "search"
 
+  get '/terms_of_use', to: 'application#terms_of_use', as: "terms_of_use"
+  get '/terms_of_service', to: 'application#terms_of_service', as: "terms_of_service"
+
   scope '/admin', admin_scope: true do
     #get '/profiles/:id/:String(.:format)', to: 'profiles#show'
     get "/admin/profiles/:id(.:format)", to: "profiles_admin#show", as: "profile_admin_show"
