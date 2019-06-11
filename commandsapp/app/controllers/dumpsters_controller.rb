@@ -27,7 +27,9 @@ class DumpstersController < ApplicationController
   # POST /dumpsters
   # POST /dumpsters.json
   def create
-    @dumpster = Dumpster.new(dumpster_params)
+    new_params = dumpster_params
+    new_params[:post] = Post.find(params[:dumpster]["post"].to_i)
+    @dumpster = Dumpster.new(new_params)
 
     respond_to do |format|
       if @dumpster.save
