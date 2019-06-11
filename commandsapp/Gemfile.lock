@@ -42,6 +42,7 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    acts_as_votable (0.12.0)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     archive-zip (0.12.0)
@@ -97,6 +98,10 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.1)
+    geokit (1.13.1)
+    geokit-rails (2.3.1)
+      geokit (~> 1.5)
+      rails (>= 3.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashie (3.6.0)
@@ -257,6 +262,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_votable
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.3.1)
   byebug
@@ -266,6 +272,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   devise
+  geokit-rails
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)

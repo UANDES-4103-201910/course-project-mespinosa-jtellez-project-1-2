@@ -15,10 +15,13 @@ Rails.application.routes.draw do
 
   post '/profiles/:id', to:'administrators#create', as: "create_admin"
 
+  get '/upvote/:id', to: 'posts#upvote', as: "upvote"
+  get '/downvote/:id', to: 'posts#downvote', as: "downvote"
+
   resources :administrators
   resources :users
   resources :geofences
-  get '/', to: 'application#index', as: "root"
+  root to: 'application#index', as: "root"
   get '/log_in', to: 'sessions#new', as: "log_in"
   get '/log_out', to: 'sessions#destroy', as: "log_out"
 

@@ -25,6 +25,25 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def is_in_geofence?
+    posts_near = []
+    if Administrator.where(user: User.find(session["warden.user.user.key"][0][0]))
+      geofence = Administrator.where(user: User.find(session["warden.user.user.key"][0][0])).first.geofence
+      geo = Geofence.find(geofence.id)
+      latitud = geo.latitude
+      longitude = geo.longitude
+      posts_nearo = Post.within(50, :origin => [latitud, longitude])
+      if posts_nearo.nil?
+        posts_nearo.each do |p|
+          posts_near << p.id
+        end
+      end
+      posts_near
+    else
+      posts_near
+    end
+  end
+
   # GET /posts
   # GET /posts.json
   def index
@@ -47,6 +66,7 @@ class ApplicationController < ActionController::Base
     post_info[:votes] = post_votes
     post_info[:user] = User.find(post.user.id)
     post_info[:profile] = Profile.where(user: post.user).first
+    #post_info[:in_geofence] = is_in_geofence?.include?(post.id)
     @post = post_info
     #render json: {post: @post}
     
@@ -147,6 +167,55 @@ class ApplicationController < ActionController::Base
     @post = Post.find(params[:id])
   end
 
+  def newsfeed
+    vote = Vote.where(post: Post.find(params[:id])).where(user: User.find(session["warden.user.user.key"][0][0]))
+    #@post = Post.find(params[:id])
+    @user = User.find(session["warden.user.user.key"][0][0])
+    if @vote.nil?
+      @vote = vote.first
+      updated_vote = @vote.attributes
+      if @vote.value != -1
+        updated_vote[:value] = -1
+        updated_vote[:post] = Post.find(params[:id])
+        updated_vote[:user] = User.find(session["warden.user.user.key"][0][0])
+        @vote.update(updated_vote)
+=begin
+        #respond_to do |format|
+        if @vote.update(updated_vote)
+          redirect_to :back, notice: 'Upvoted successfuly.'
+          #format.json { render json: {user: @post} }
+          #render json: @post
+        else
+          redirect_to :back
+          #format.json { render json: @post.errors, status: :unprocessable_entity }
+          #render json: @post.errors, status: :unprocessable_entity
+        end
+        #end
+=end
+      else
+        updated_vote[:value] = 0
+        updated_vote[:post] = Post.find(params[:id])
+        updated_vote[:user] = User.find(session["warden.user.user.key"][0][0])
+        @vote.update(updated_vote)
+      end
+    else
+      new_vote = Vote.new.attributes
+      new_vote[:value] = -1
+      new_vote[:post] = Post.find(params[:id])
+      new_vote[:user] = User.find(session["warden.user.user.key"][0][0])
+      @vote = Vote.new(new_vote)
+      @vote.save
+=begin
+      if @user.save
+        redirect_to :back, notice: "Upvoted successfuly"
+      else
+        redirect_to :back
+      end
+=end
+    end
+    @posts = list_posts
+  end
+
   def current_user
    @current_user ||= User.find(session["warden.user.user.key"][0][0])
 
@@ -180,7 +249,7 @@ class ApplicationController < ActionController::Base
     end
 
     def post_votes
-      Vote.where(post: params[:id])
+      Vote.where(post: params[:id]).where(value: 1).count - Vote.where(post: params[:id]).where(value: -1).count
     end
 
     def list_posts
@@ -190,7 +259,7 @@ class ApplicationController < ActionController::Base
       posts = Post.where(open: 1)
       posts.each do |post|
         post_info = post.attributes
-        post_info[:votes] = post_votes
+        post_info[:votes] = Vote.where(post: post).where(value: 1).count - Vote.where(post: post).where(value: -1).count
         post_info[:comments] = post_comments
         post_list << post_info
       end

@@ -21,8 +21,6 @@
     <% end %>
   </li>            
 </ul>
-      
-      
 
 <ul class="list-unstyled">
 
@@ -39,7 +37,6 @@
               <li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li>
             </ul>
           <% end %>
-
             <ul class="list-inline">
               <li class="list-inline-item post-info"><%= post["created_at"] %></li>
               <li class="list-inline-item post-info">Comments: <%= post["comments"] %></li>
