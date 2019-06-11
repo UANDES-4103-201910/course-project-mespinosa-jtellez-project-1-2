@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    
-  </head>
-  <body>
+
 
     <h3>Blacklist</h3>
     <hr>
@@ -19,11 +14,17 @@
         </select>
       </div>
     </li-->
+    <%= form_tag blacklist_destroy_selected_path, method: :delete do %>
+
     <li class="list-inline-item">
-      <%= link_to new_blacklist_path  do%>
-        <button type="button" class="btn btn-info">Add user</button>
+
+      <%= button_tag(type: "submit", class: "btn btn-outline-info list-inline-item") do %>
+          Restore
       <% end %>
-      <button type="button" class="btn btn-outline-info">Restore</button>
+
+      <%= link_to dumpsters_path do %>
+        <button type="button" class="btn btn-outline-secondary">Go to Dumpster</button>
+      <% end %>
     </li>            
   </ul>
         
@@ -34,10 +35,15 @@
 
       <% @blacklists.each do |entry| %>
 
+      <table width="100%"><tr>
+
+        <td width="5%">
+          <%= check_box_tag "users[]", entry["id"] %>
+        </td>
+        <td> 
+
       <%= link_to profile_path(Profile.where(user: entry[:user]["id"]).first) do %>
         <li class="media">
-          <table width="100%"><tr>
-            <td width="95%">
               <div class="media-body">
                 <ul class="list-inline">
                   <li class="list-inline-item post-title"><%= entry[:user]["name"] %></li>
@@ -48,14 +54,10 @@
                 </ul>
               </div>
             </td>
-            <td width="5%">
-                <input type="checkbox" value="">
-            </td>
           </tr></table>
         </li>
       <% end %>
       <% end %>
     </ul>
-  </body>
-</html>
+  <% end %>
 

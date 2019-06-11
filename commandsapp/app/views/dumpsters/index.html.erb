@@ -2,19 +2,6 @@
     <h3>Dumpster</h3>
     <hr>
 
-  <ul id="profile-navtab" class="nav nav-tabs nav-fill">
-    <%= link_to dumpster_rants_path, class: "nav-item", remote: true do %>
-      <li id="profile-tab" class="nav-item">
-        <i id="profile-tab-link" class="nav-link">Rants</i>
-      </li>
-    <% end %>
-    <%= link_to dumpster_users_path, class: "nav-item", remote: true do %>
-      <li id="profile-tab" class="nav-item">
-        <i id="profile-tab-link" class="nav-link">Users</i>
-      </li>
-    <% end %>
-  </ul><br> 
-
   <div id="dumpster_content">
     
     <ul class="list-inline">
@@ -28,12 +15,21 @@
           </select>
         </div>
       </li-->
+
+    <%= form_tag dumpster_destroy_selected_path, method: :delete do %>
+
       <li class="list-inline-item">
-        <%= link_to new_dumpster_path  do%>
-          <button type="button" class="btn btn-info">Add Rant</button>
+
+        <%= button_tag(type: "submit", class: "btn btn-outline-info list-inline-item") do %>
+          Restore
         <% end %>
-        <button type="button" class="btn btn-outline-info">Restore</button>
-      </li>            
+
+        <%= link_to blacklists_path do %>
+          <button type="button" class="btn btn-outline-secondary">Go to Blacklist</button>
+        <% end %>
+      </li>
+        
+
     </ul>
           
         
@@ -43,7 +39,7 @@
 
           <table width="100%"><tr>      
             <td width="5%">
-              <input type="checkbox" value="">
+              <%= check_box_tag "rants[]", dump["id"] %>
             </td>
             <td> 
 
@@ -66,4 +62,4 @@
         <% end %>
       </ul>
   </div>
-
+<% end %>

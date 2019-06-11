@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :profiles
 
   delete '/administrators', to: 'administrators#destroy_selected', as: "administrators_destroy_selected"
+  delete '/blacklists', to: 'blacklists#destroy_selected', as: "blacklist_destroy_selected"
+  delete '/dumpsters', to: 'dumpsters#destroy_selected', as: "dumpster_destroy_selected"
+
 
   post '/profiles/:id', to:'administrators#create', as: "create_admin"
 
@@ -33,10 +36,6 @@ Rails.application.routes.draw do
   get "/register", to: 'users#new', as: "register"
 
   get '/rant/:id/file_selected', to: 'application#show_file', as: "file"
-  
-  get '/dumpsters/rants(.:format)', to: 'dumpsters#dumpster', as: "dumpster_rants"
-  get '/dumpsters/users(.:format)', to: 'dumpsters#blacklist', as: "dumpster_users"
-
   get '/search', to: 'application#search', as: "search"
 
   scope '/admin', admin_scope: true do

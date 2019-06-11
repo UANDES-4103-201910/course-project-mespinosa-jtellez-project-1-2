@@ -6,7 +6,7 @@ class DumpstersController < ApplicationController
   # GET /dumpsters.json
   def index
     @dumpsters = list_posts
-    @blacklists = Blacklist.all
+    @blacklists = list_users
   end
 
   # GET /dumpsters/1
@@ -63,21 +63,15 @@ class DumpstersController < ApplicationController
     end
   end
 
-  def dumpster
-    @dumpsters = list_posts
-    @blacklists = Blacklist.all
-    respond_to do |format|
-      format.html #looks for views/books/index.html.erb
-      format.js {render layout: false}  #looks for views/books/index.js.erb
+  def destroy_selected
+    params["rants"].each do |rant|
+      @dumpster = Dumpster.find(rant.to_i)
+      @dumpster.destroy
     end
-  end
 
-  def blacklist
-    @dumpsters = list_posts
-    @blacklists = Blacklist.all
     respond_to do |format|
-      format.html #looks for views/books/index.html.erb
-      format.js {render layout: false}  #looks for views/books/index.js.erb
+      format.html { redirect_to dumpsters_path }
+      format.json { head :no_content }
     end
   end
 
@@ -115,6 +109,17 @@ class DumpstersController < ApplicationController
         post_list << post_info
       end
       post_list
+    end
+
+    def list_users
+      user_list = []
+      users = Blacklist.all
+      users.each do |user|
+        user_info = user.attributes
+        user_info[:user] = User.find(user.user.id)
+        user_list << user_info
+      end
+      user_list
     end
 
 end
