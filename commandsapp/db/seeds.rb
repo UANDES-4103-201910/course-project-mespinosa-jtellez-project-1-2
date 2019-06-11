@@ -8,11 +8,11 @@
 
 users = User.create([{email: "jatellez@miuandes.com", password: "123456789", name: "joaco", role: 2}, 
 	{email: "macakill@miuandes.cl", password: "123456789", name: "maca", role: 2}])
-posts = Post.create([{"title": "rant 1", "creation_date": "nil", "description": "first description", "location": "Santiago, Chile", "open": "0", "solved": "0", "user": users.first },
-{"title": "rant 2", "creation_date": "nil", "description": "rant", "location": "Santiago, Chile", "open": "1", "solved": "0", "user": users.last }])
+posts = Post.create([{"title": "rant 1", "creation_date": "nil", "description": "first description", "location": "Santiago, Chile", "open": "0", "solved": "0", "user": users.first, latitude: 0.0, longitude: 0.0 },
+{"title": "rant 2", "creation_date": "nil", "description": "rant", "location": "Santiago, Chile", "open": "1", "solved": "0", "user": users.last, latitude: 0.0, longitude: 0.0 }])
 blacklist = Blacklist.create([{date: "nil", user: users.first}])
 dumpster = Dumpster.create([{post: posts.first, date: "nil"}])
-geofence = Geofence.create([{location: "Santiago"}])
+geofence = Geofence.create([{location: "Santiago", latitude: -33.447487, longitude: -70.673676}])
 administrator = Administrator.create([{last_access: "nil", superadmin: "1", geofence: geofence.first, user: users.last}])
 profiles = Profile.create([{picture: "nil", biography: "la bio", city: "Santiago", country: "Chile", user: users.first}, 
 	{picture: "nil", biography: "la otra bio", city: "Santiago", country: "Chile", user: users.last}])

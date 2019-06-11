@@ -25,6 +25,25 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def is_in_geofence?
+    posts_near = []
+    if Administrator.where(user: User.find(session["warden.user.user.key"][0][0]))
+      geofence = Administrator.where(user: User.find(session["warden.user.user.key"][0][0])).first.geofence
+      geo = Geofence.find(geofence.id)
+      latitud = geo.latitude
+      longitude = geo.longitude
+      posts_nearo = Post.within(50, :origin => [latitud, longitude])
+      if posts_nearo.nil?
+        posts_nearo.each do |p|
+          posts_near << p.id
+        end
+      end
+      posts_near
+    else
+      posts_near
+    end
+  end
+
   # GET /posts
   # GET /posts.json
   def index
@@ -47,6 +66,7 @@ class ApplicationController < ActionController::Base
     post_info[:votes] = post_votes
     post_info[:user] = User.find(post.user.id)
     post_info[:profile] = Profile.where(user: post.user).first
+    #post_info[:in_geofence] = is_in_geofence?.include?(post.id)
     @post = post_info
     #render json: {post: @post}
     

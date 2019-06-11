@@ -5,8 +5,8 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.timestamp :creation_date
       t.text :description
       t.string :location
-      t.string :latitude
-      t.string :longitude
+      t.decimal :latitude
+      t.decimal :longitude
       t.boolean :open
       t.boolean :solved
       t.references :user
