@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(version: 2019_06_01_035608) do
     t.datetime "creation_date"
     t.text "description"
     t.string "location"
+    t.string "latitude"
+    t.string "longitude"
     t.boolean "open"
     t.boolean "solved"
     t.integer "user_id"

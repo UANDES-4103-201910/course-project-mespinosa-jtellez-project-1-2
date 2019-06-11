@@ -1,7 +1,138 @@
 <h3>New Post</h3>
 <hr>
 
-<%= render 'form', post: @post %>
+<style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 50%;
+        width: 30%
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+
+      }
+    </style>
+
+  <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+      	var latlng;
+      	navigator.geolocation.getCurrentPosition(function(response) {
+        	var latlng = new google.maps.LatLng(response.coords.latitude, response.coords.longitude);
+        	var latitude = response.coords.latitude;
+	        var longitude = response.coords.longitude;
+	        //$('#lat-field').val(latitude);
+	        //$('#lon-field').val(longitude);
+	        document.getElementById('lat-field').value = latitude.toString();
+	        document.getElementById('lon-field').value = longitude.toString();
+    	
+          var map = new google.maps.Map(document.getElementById('map'), {
+              center: latlng,
+              zoom: 10,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+          });
+          var marker = new google.maps.Marker({
+              position: latlng,
+              map: map,
+              title: 'Set lat/lon values for this property',
+              draggable: true
+          });
+          google.maps.event.addListener(marker, 'dragend', function(a) {
+              var latitude = a.latLng.lat().toFixed(4);
+              var longitude = a.latLng.lng().toFixed(4);
+              //$('#lat-field').val(latitude);
+              //$('#lon-field').val(longitude);
+              document.getElementById('lat-field').value = latitude.toString();
+              document.getElementById('lon-field').value = longitude.toString();
+              console.log(document.getElementById('lon-field').value)
+          });
+        });
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3MrRqEVEh_q4JG1XhexUAZSzfkUzUqE4&callback=initMap"
+    async defer></script>
+
+
+<%= form_with(model: @post, local: true) do |form| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  	<!--%= form.hidden_field_tag :latitude, id: "lat-field" %-->
+
+  	<!--%= form.hidden_field_tag :longitude, id: "lon-field" %-->
+
+  	<%= form.label :latitude %><br>
+  	<%= form.text_field :latitude, :readonly => true, id: "lat-field", class: 'form-text-field form-control' %>
+
+  	<%= form.label :longitude %><br>
+  	<%= form.text_field :longitude, :readonly => true, id: "lon-field", class: 'form-text-field form-control' %>
+
+  <div class="field">
+    <%= form.label :title %><br>
+    <%= form.text_field :title, class: 'form-text-field form-control' %>
+  </div><br>
+  <div class="text_field">
+    <%= form.label :description %><br>
+    <%= form.text_area :description, class: 'form-text-field form-control', rows: "8" %>
+  </div>
+  <hr>
+  <div class="field">
+    <%= form.label :location %><br>
+    <%= form.text_field :location, class: 'form-text-field' %>
+  </div><br>
+
+  <div class="list-inline-item custom-file">
+    Picture<br>
+    <%= form.file_field :picture %>
+  </div>
+  <br><br>
+
+  <div class="list-inline-item custom-file">
+    File<br>
+    <%= form.file_field :file %>
+  </div>
+  <br><br>
+
+  <div class="field form-check">
+    <%= form.check_box :open %> Close comments
+  </div>
+
+  <!--div class="field">
+    <%= form.label :creation_date %><br>
+    <%= form.datetime_select :creation_date, class: 'form-text-field' %>
+  </div-->
+
+  <!--div class="field">
+    <%= form.label :solved %>
+    <%= form.check_box :solved %>
+  </div-->
+
+  <!--div class="field">
+    <%= form.label :user %>
+    <%= form.text_field :user %>
+  </div-->
+
+
+  <hr>
+  <div class="actions">
+    <%= form.submit 'Create', class: 'btn btn-outline-info' %>
+  </div>
+<% end %>
+
 
 <br>
 <%= link_to 'Back', "/", class: 'back-link' %>

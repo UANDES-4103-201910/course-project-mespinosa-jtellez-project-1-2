@@ -1,36 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    
-  </head>
-  <body>
-
-    <h3>Newsfeed</h3>
-    <hr>
-
-  <ul class="list-inline">
-    <!--li class="list-inline-item">
-      <div class="input-group mb-3">
-        <select class="custom-select" id="inputGroupSelect01">
-          <option selected>Filter by...</option>
-          <option value="1">Most Upvoted</option>
-          <option value="2">Most Downvoted</option>
-          <option value="3">Most Commented</option>
-        </select>
-      </div>
-    </li-->
-    <li class="list-inline-item">
-      <% if can? :create, @posts %>
-        <%= link_to new_post_path  do%>
-          <button type="button" class="btn btn-info">New Post</button>
-        <% end %>
-      <% end %>
-    </li>            
-  </ul>
-        
-  <div id="newsfeed">    
-
-    <ul class="list-unstyled">
+<ul class="list-unstyled">
 
       <% @posts.each do |post| %>
         <li class="media">
@@ -52,11 +20,11 @@
                 </ul>
               </td>
               <td width="5%" id="votes">
-                <%= link_to upvote_path(post["id"]) do %>
+                <%= link_to upvote_path(post["id"]), remote: true do %>
                   <i id="vote" class="fas fa-caret-up"></i>
                 <% end %>
                 <p><%= post[:votes] %></p>
-                <%= link_to downvote_path(post["id"]) do %>
+                <%= link_to downvote_path(post["id"]), remote: true do %>
                   <i id="vote" class="fas fa-caret-down"></i>
                 <% end %>
               </td>
@@ -75,7 +43,3 @@
         </li>
       <% end %>
     </ul>
-  </div>
-
-  </body>
-</html>

@@ -201,6 +201,130 @@ class PostsController < ApplicationController
     @post = post_info
   end
 
+  def upvote
+    vote = Vote.where(post: Post.find(params[:id])).where(user: User.find(session["warden.user.user.key"][0][0]))
+    @post = Post.find(params[:id])
+    if @vote.nil?
+      @vote = vote.first
+      updated_vote = @vote.attributes
+      if @vote.value != 1
+        updated_vote[:value] = 1
+        updated_vote[:post] = Post.find(params[:id])
+        updated_vote[:user] = User.find(session["warden.user.user.key"][0][0])
+        #@vote.update(updated_vote)
+        respond_to do |format|
+          if @vote.update(updated_vote)
+            format.html { redirect_to root_path, notice: 'User was successfully updated.' }
+            format.json { render json: {user: @post} }
+            #format.json { render json: {user: @post} }
+            #render json: @post
+          else
+            redirect_to root_path
+            #format.json { render json: @post.errors, status: :unprocessable_entity }
+            #render json: @post.errors, status: :unprocessable_entity
+          end
+        end
+      else
+        updated_vote[:value] = 0
+        updated_vote[:post] = Post.find(params[:id])
+        updated_vote[:user] = User.find(session["warden.user.user.key"][0][0])
+        @vote.update(updated_vote)
+        respond_to do |format|
+          if @vote.update(updated_vote)
+            format.html { redirect_to root_path, notice: 'User was successfully updated.' }
+            format.json { render json: {user: @post} }
+            #render json: @post
+          else
+            redirect_to :back
+            #format.json { render json: @post.errors, status: :unprocessable_entity }
+            #render json: @post.errors, status: :unprocessable_entity
+          end
+        end
+      end
+    else
+      new_vote = Vote.new.attributes
+      new_vote[:value] = 1
+      new_vote[:post] = Post.find(params[:id])
+      new_vote[:user] = User.find(session["warden.user.user.key"][0][0])
+      @vote = Vote.new(new_vote)
+      #@vote.save
+      if @vote.save
+        format.html { redirect_to root_path, notice: 'User was successfully updated.' }
+        format.json { render json: {user: @post} }
+      else
+        redirect_to :back
+      end
+    end
+=begin
+    render json: {
+      success: true,
+      response: Vote.where(post: Post.find(params[:id])).where(value: 1).count - 
+        Vote.where(post: Post.find(params[:id])).where(value: -1).count
+    }
+=end
+  end
+
+  def downvote
+    vote = Vote.where(post: Post.find(params[:id])).where(user: User.find(session["warden.user.user.key"][0][0]))
+    @post = Post.find(params[:id])
+    if @vote.nil?
+      @vote = vote.first
+      updated_vote = @vote.attributes
+      if @vote.value != -1
+        updated_vote[:value] = -1
+        updated_vote[:post] = Post.find(params[:id])
+        updated_vote[:user] = User.find(session["warden.user.user.key"][0][0])
+        #@vote.update(updated_vote)
+        respond_to do |format|
+          if @vote.update(updated_vote)
+            format.html { redirect_to root_path, notice: 'User was successfully updated.' }
+            format.json { render json: {user: @post} }
+            #render json: @post
+          else
+            redirect_to :back
+            #format.json { render json: @post.errors, status: :unprocessable_entity }
+            #render json: @post.errors, status: :unprocessable_entity
+          end
+        end
+      else
+        updated_vote[:value] = 0
+        updated_vote[:post] = Post.find(params[:id])
+        updated_vote[:user] = User.find(session["warden.user.user.key"][0][0])
+        @vote.update(updated_vote)
+        respond_to do |format|
+          if @vote.update(updated_vote)
+            format.html { redirect_to root_path, notice: 'User was successfully updated.' }
+            format.json { render json: {user: @post} }
+            #render json: @post
+          else
+            redirect_to :back
+            #format.json { render json: @post.errors, status: :unprocessable_entity }
+            #render json: @post.errors, status: :unprocessable_entity
+          end
+        end
+      end
+    else
+      new_vote = Vote.new.attributes
+      new_vote[:value] = -1
+      new_vote[:post] = Post.find(params[:id])
+      new_vote[:user] = User.find(session["warden.user.user.key"][0][0])
+      @vote = Vote.new(new_vote)
+      #@vote.save
+      if @vote.save
+        format.html { redirect_to root_path, notice: 'User was successfully updated.' }
+        format.json { render json: {user: @post} }
+      else
+        redirect_to :back
+      end
+    end
+=begin
+    render json: {
+      success: true,
+      response: Vote.where(post: Post.find(params[:id])).where(value: 1).count - 
+        Vote.where(post: Post.find(params[:id])).where(value: -1).count
+    }
+=end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -210,7 +334,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :creation_date, :description, :location, :open, :solved, :user)
+      params.require(:post).permit(:title, :creation_date, :description, :location, :open, :solved, :user, :latitude, :longitude)
     end
 
     def post_comments
