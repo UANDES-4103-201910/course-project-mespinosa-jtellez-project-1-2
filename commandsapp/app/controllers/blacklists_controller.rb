@@ -63,6 +63,18 @@ class BlacklistsController < ApplicationController
     end
   end
 
+  def destroy_selected
+    params["users"].each do |user|
+      @blacklist = Blacklist.find(user.to_i)
+      @blacklist.destroy
+    end
+
+    respond_to do |format|
+      format.html { redirect_to blacklists_path }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_blacklist

@@ -1,81 +1,63 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    
-  </head>
-  <body>
 
-    <h3>Newsfeed</h3>
-    <hr>
+<h3>Newsfeed</h3>
+<hr>
 
-  <ul class="list-inline">
-    <!--li class="list-inline-item">
-      <div class="input-group mb-3">
-        <select class="custom-select" id="inputGroupSelect01">
-          <option selected>Filter by...</option>
-          <option value="1">Most Upvoted</option>
-          <option value="2">Most Downvoted</option>
-          <option value="3">Most Commented</option>
-        </select>
-      </div>
-    </li-->
-    <li class="list-inline-item">
-      <% if can? :create, @posts %>
-        <%= link_to new_post_path  do%>
-          <button type="button" class="btn btn-info">New Post</button>
-        <% end %>
+<ul class="list-inline">
+  <!--li class="list-inline-item">
+    <div class="input-group mb-3">
+      <select class="custom-select" id="inputGroupSelect01">
+        <option selected>Filter by...</option>
+        <option value="1">Most Upvoted</option>
+        <option value="2">Most Downvoted</option>
+        <option value="3">Most Commented</option>
+      </select>
+    </div>
+  </li-->
+  <li class="list-inline-item">
+    <% if can? :create, @posts %>
+      <%= link_to new_post_path  do%>
+        <button type="button" class="btn btn-info">New Post</button>
       <% end %>
-    </li>            
-  </ul>
-        
-  <div id="newsfeed">    
+    <% end %>
+  </li>            
+</ul>
 
-    <ul class="list-unstyled">
+<ul class="list-unstyled">
 
-      <% @posts.each do |post| %>
-        <li class="media">
-          <img src="..." class="align-self-center mr-3" alt="...">
-          <div class="media-body">
-            <table width="100%"><tr width=100%>
-              <td width="90%" id="post">
+  <% @posts.each do |post| %>
+    <li class="media">
+      <img src="..." class="align-self-center mr-3" alt="...">
+      <div class="media-body">
+        <table width="100%"><tr width=100%>
+          <td width="90%" id="post">
 
-              <%= link_to rant_path(post["id"]) do %>
-                <ul class="list-inline">
-                  <li class="list-inline-item post-title"><%= post["title"] %></li>
-                  <li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li>
-                </ul>
+          <%= link_to rant_path(post["id"]) do %>
+            <ul class="list-inline">
+              <li class="list-inline-item post-title"><%= post["title"] %></li>
+              <li class="list-inline-item post-info"><%= User.find(post["user_id"]).email %></li>
+            </ul>
+          <% end %>
+            <ul class="list-inline">
+              <li class="list-inline-item post-info"><%= post["created_at"] %></li>
+              <li class="list-inline-item post-info">Comments: <%= post["comments"] %></li>
+            </ul>
+          </td>
+          <td width="5%" id="votes">
+            <i id="vote" class="fas fa-caret-up"></i>
+              <p><%= post["votes"] %></p>
+            <i id="vote" class="fas fa-caret-down"></i>
+          </td>
+          <td width="5%" id="votes">
+            <% if post["user_id"] == session["warden.user.user.key"][0][0] %>
+              <%= link_to post_path(post["id"]), method: :delete do %>
+                <i class="fas fa-times"></i>
+              <% end %><br>
+              <%= link_to edit_post_path(post["id"]) do %>
+                <i class="fas fa-edit"></i><br>
               <% end %>
-
-                <ul class="list-inline">
-                  <li class="list-inline-item post-info"><%= post["created_at"] %></li>
-                  <li class="list-inline-item post-info">Comments: <%= post["comments"] %></li>
-                </ul>
-              </td>
-              <td width="5%" id="votes">
-                <%= link_to upvote_path(post["id"]) do %>
-                  <i id="vote" class="fas fa-caret-up"></i>
-                <% end %>
-                <p><%= post[:votes] %></p>
-                <%= link_to downvote_path(post["id"]) do %>
-                  <i id="vote" class="fas fa-caret-down"></i>
-                <% end %>
-              </td>
-              <td width="5%" id="votes">
-                <% if post["user_id"] == session["warden.user.user.key"][0][0] %>
-                  <%= link_to post_path(post["id"]), method: :delete do %>
-                    <i class="fas fa-times"></i>
-                  <% end %><br>
-                  <%= link_to edit_post_path(post["id"]) do %>
-                    <i class="fas fa-edit"></i><br>
-                  <% end %>
-                <% end %>
-                <i class="fas fa-exclamation-circle"></i>
-              </td>
-            </tr></table>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-
-  </body>
-</html>
+            <% end %>
+          </td>
+        </tr></table>
+    </li>
+  <% end %>
+</ul>
