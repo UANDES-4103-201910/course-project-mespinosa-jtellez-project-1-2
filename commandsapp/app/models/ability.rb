@@ -11,7 +11,8 @@ class Ability
         if Administrator.where(user: user).first.superadmin
             can :manage, :all
         else
-            can :create, Post
+            can :manage, :all
+            cannot :manage, Administrator
         end
     elsif not user.nil? 
         can :read, :all
