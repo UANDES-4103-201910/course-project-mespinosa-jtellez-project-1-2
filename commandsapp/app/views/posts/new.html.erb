@@ -47,8 +47,10 @@
               //$('#lon-field').val(longitude);
               document.getElementById('lat-field').value = latitude.toString();
               document.getElementById('lon-field').value = longitude.toString();
-              console.log(document.getElementById('lon-field').value)
+              //console.log(document.getElementById('lon-field').value);
+              reverseGeocode(latitude.toString(), longitude.toString());
           });
+          reverseGeocode(latitude.toString(), longitude.toString());
         });
       }
 
@@ -81,6 +83,30 @@
   	<%= form.label :longitude %><br>
   	<%= form.text_field :longitude, :readonly => true, id: "lon-field", class: 'form-text-field form-control' %>
 
+    <script src="https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyA3MrRqEVEh_q4JG1XhexUAZSzfkUzUqE4"
+    async defer></script>
+
+    <script>
+      function reverseGeocode(latitude, longitude){
+        $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&key=AIzaSyA3MrRqEVEh_q4JG1XhexUAZSzfkUzUqE4', function(data) {
+    //data is the JSON string
+              //console.log(data.results[0].address_components);
+              var result = data.results[0].address_components;
+              for(i=0; i<result.length; i++){
+                if(result[i].types[0]=="country"){
+                  var country = data.results[0].address_components[i].long_name.toString();
+                }
+              }
+              
+              document.getElementById('country-field').value = country;
+              //console.log(data.results[0].address_components[6].long_name.toString())
+        });
+      }
+    </script>
+
+    <%= form.label :country %><br>
+    <%= form.text_field :country, :readonly => true, id: "country-field", class: 'form-text-field form-control' %>
+
   <div class="field">
     <%= form.label :title %><br>
     <%= form.text_field :title, class: 'form-text-field form-control' %>
@@ -90,10 +116,10 @@
     <%= form.text_area :description, class: 'form-text-field form-control', rows: "8" %>
   </div>
   <hr>
-  <div class="field">
+  <!--div class="field">
     <%= form.label :location %><br>
     <%= form.text_field :location, class: 'form-text-field' %>
-  </div><br>
+  </div><br-->
 
   <div class="list-inline-item custom-file">
     Picture<br>

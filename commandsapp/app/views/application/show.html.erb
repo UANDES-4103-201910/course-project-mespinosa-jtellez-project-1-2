@@ -24,7 +24,7 @@
         <div class="list-inline">
           <h2 id="post-title" class="list-inline-item"><%= @post["title"] %></h2>
           <p id="post-location" class="list-inline-item">
-            <i class="fas fa-globe"></i> <%= @post["location"] %>
+            <i class="fas fa-globe"></i> <%= @post["country"] %>
           </p>
         </div>
         <p id="post-description"><%= @post["description"] %></p>
@@ -32,13 +32,17 @@
 
       <td width="10%">
         <div id="post-votes">
-          <i id="vote" class="fas fa-caret-up"></i>
+          <%= link_to upvote_path(@post["id"]) do %>
+            <i id="vote" class="fas fa-caret-up"></i>
+          <% end %>
           <p><%= @post[:votes] %></p>
-          <i id="vote" class="fas fa-caret-down"></i>
+          <%= link_to downvote_path(@post["id"]) do %>
+            <i id="vote" class="fas fa-caret-down"></i>
+          <% end %>
         </div>
       </td>
       <td width="5%" id="votes">
-      <% if @post[:user]["id"] == session["warden.user.user.key"][0][0] %>
+      <% if @post[:user]["id"] == session["warden.user.user.key"][0][0] || @post[:in_geofence] %>
         <%= link_to post_path(@post["id"]), method: :delete do %>
           <i class="fas fa-times"></i>
         <% end %><br>
@@ -46,6 +50,11 @@
           <i class="fas fa-edit"></i><br>
         <% end %>
       <% else %>
+        <%= link_to new_dumpster_path(:post => @post["id"]) do %>
+          <i class="fas fa-exclamation-circle back-link"></i>
+        <% end %>
+      <% end %>
+      <% if @post[:in_geofence] %>
         <%= link_to new_dumpster_path(:post => @post["id"]) do %>
           <i class="fas fa-exclamation-circle back-link"></i>
         <% end %>
@@ -135,7 +144,7 @@
         <p id="comment-author" class="list-inline-item"><%= comment[:user]["name"] %></p>
       <% end %>
         <p id="comment-date" class="list-inline-item"><%= comment["created_at"] %></p>
-        <% if comment[:user]["id"] == session["warden.user.user.key"][0][0] %>
+        <% if comment[:user]["id"] == session["warden.user.user.key"][0][0] || @post[:in_geofence] %>
           <%= link_to edit_comment_path(comment["id"]) do %>
             <i class="fas fa-edit"></i>
           <% end %>

@@ -79,8 +79,6 @@ ActiveRecord::Schema.define(version: 2019_06_01_035608) do
 
   create_table "geofences", force: :cascade do |t|
     t.string "location"
-    t.decimal "latitude"
-    t.decimal "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -111,6 +109,7 @@ ActiveRecord::Schema.define(version: 2019_06_01_035608) do
     t.string "location"
     t.decimal "latitude"
     t.decimal "longitude"
+    t.string "country"
     t.boolean "open"
     t.boolean "solved"
     t.integer "user_id"

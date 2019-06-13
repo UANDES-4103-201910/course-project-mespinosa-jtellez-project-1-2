@@ -44,10 +44,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def in_geofence
+    location = nil
+    if Administrator.where(user: User.find(session["warden.user.user.key"][0][0]))
+      geofence = Administrator.where(user: User.find(session["warden.user.user.key"][0][0])).first.geofence
+      geo = Geofence.find(geofence.id)
+      location = geo.location
+    end
+    location
+  end
+
   # GET /posts
   # GET /posts.json
   def index
-	 @posts = list_posts
+	  @posts = list_posts
   end
 
   # GET /posts/1
@@ -66,6 +76,7 @@ class ApplicationController < ActionController::Base
     post_info[:votes] = post_votes
     post_info[:user] = User.find(post.user.id)
     post_info[:profile] = Profile.where(user: post.user).first
+    post_info[:in_geofence] = if post.country == in_geofence then true else false end
     #post_info[:in_geofence] = is_in_geofence?.include?(post.id)
     @post = post_info
     #render json: {post: @post}
@@ -261,6 +272,7 @@ class ApplicationController < ActionController::Base
         post_info = post.attributes
         post_info[:votes] = Vote.where(post: post).where(value: 1).count - Vote.where(post: post).where(value: -1).count
         post_info[:comments] = post_comments
+        post_info[:in_geofence] = if post.country == in_geofence then true else false end
         post_list << post_info
       end
       post_list
