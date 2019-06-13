@@ -204,7 +204,7 @@ class PostsController < ApplicationController
   def upvote
     vote = Vote.where(post: Post.find(params[:id])).where(user: User.find(session["warden.user.user.key"][0][0]))
     @post = Post.find(params[:id])
-    if @vote.nil?
+    if vote.present?
       @vote = vote.first
       updated_vote = @vote.attributes
       if @vote.value != 1
@@ -248,11 +248,13 @@ class PostsController < ApplicationController
       new_vote[:user] = User.find(session["warden.user.user.key"][0][0])
       @vote = Vote.new(new_vote)
       #@vote.save
-      if @vote.save
-        format.html { redirect_to root_path, notice: 'User was successfully updated.' }
-        format.json { render json: {user: @post} }
-      else
-        redirect_to :back
+      respond_to do |format|
+        if @vote.save
+          format.html { redirect_to root_path, notice: 'User was successfully updated.' }
+          format.json { render json: {user: @post} }
+        else
+          redirect_to :back
+        end
       end
     end
 =begin
@@ -267,7 +269,7 @@ class PostsController < ApplicationController
   def downvote
     vote = Vote.where(post: Post.find(params[:id])).where(user: User.find(session["warden.user.user.key"][0][0]))
     @post = Post.find(params[:id])
-    if @vote.nil?
+    if vote.present?
       @vote = vote.first
       updated_vote = @vote.attributes
       if @vote.value != -1
@@ -310,11 +312,13 @@ class PostsController < ApplicationController
       new_vote[:user] = User.find(session["warden.user.user.key"][0][0])
       @vote = Vote.new(new_vote)
       #@vote.save
-      if @vote.save
-        format.html { redirect_to root_path, notice: 'User was successfully updated.' }
-        format.json { render json: {user: @post} }
-      else
-        redirect_to :back
+      respond_to do |format|
+        if @vote.save
+          format.html { redirect_to root_path, notice: 'User was successfully updated.' }
+          format.json { render json: {user: @post} }
+        else
+          redirect_to :back
+        end
       end
     end
 =begin
@@ -334,7 +338,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :creation_date, :description, :location, :open, :solved, :user, :latitude, :longitude, :country)
+      params.require(:post).permit(:title, :creation_date, :description, :location, :open, :solved, :user, :latitude, :longitude)
     end
 
     def post_comments

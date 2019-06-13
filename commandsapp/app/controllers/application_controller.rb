@@ -46,10 +46,12 @@ class ApplicationController < ActionController::Base
 
   def in_geofence
     location = nil
-    if Administrator.where(user: User.find(session["warden.user.user.key"][0][0]))
-      geofence = Administrator.where(user: User.find(session["warden.user.user.key"][0][0])).first.geofence
-      geo = Geofence.find(geofence.id)
-      location = geo.location
+    if not Administrator.where(user: User.find(session["warden.user.user.key"][0][0])).nil?
+      geofence = Administrator.where(user: User.find(session["warden.user.user.key"][0][0])).first
+      if not geofence.nil?
+        geo = Geofence.find(geofence.geofence.id)
+        location = geo.location
+      end
     end
     location
   end
