@@ -14,8 +14,8 @@
     <% @geofences.each do |geofence| %>
       <tr>
         <td><%= geofence.location %></td>
-        <td><%= link_to 'Show', geofence %></td>
-        <td><%= link_to 'Edit', edit_geofence_path(geofence) %></td>
+        
+        
         <td><%= link_to 'Destroy', geofence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

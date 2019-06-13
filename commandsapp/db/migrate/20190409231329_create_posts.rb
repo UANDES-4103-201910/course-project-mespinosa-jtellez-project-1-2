@@ -7,6 +7,7 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.string :location
       t.decimal :latitude
       t.decimal :longitude
+      t.string :country
       t.boolean :open
       t.boolean :solved
       t.references :user

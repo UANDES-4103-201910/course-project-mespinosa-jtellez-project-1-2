@@ -52,7 +52,7 @@
                 <% end %>
               </td>
           <td width="5%" id="votes">
-            <% if post["user_id"] == session["warden.user.user.key"][0][0] %>
+            <% if post["user_id"] == session["warden.user.user.key"][0][0] || post[:in_geofence] %>
               <%= link_to post_path(post["id"]), method: :delete do %>
                 <i class="fas fa-times"></i>
               <% end %><br>

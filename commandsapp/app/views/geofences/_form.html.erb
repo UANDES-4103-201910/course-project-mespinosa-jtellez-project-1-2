@@ -16,6 +16,8 @@
     <%= form.text_field :location %>
   </div>
 
+  <%= form.collection_select :provider_id, Geofence.order(:location),:id,:location, include_blank: true %>
+
   <div class="actions">
     <%= form.submit %>
   </div>
