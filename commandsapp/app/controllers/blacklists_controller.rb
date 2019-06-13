@@ -75,6 +75,22 @@ class BlacklistsController < ApplicationController
     end
   end
 
+  def search
+
+    if params[:name]
+      user_list = list_users
+      search_list = []
+      user_list.each do |user|
+        if user[:user]["name"].include? params[:name]
+          search_list.push(user)
+        end
+      end
+      @blacklists = search_list
+    else  
+      @blacklists = list_users
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_blacklist

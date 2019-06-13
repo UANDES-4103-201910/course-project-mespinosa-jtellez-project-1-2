@@ -40,6 +40,9 @@ Rails.application.routes.draw do
   get '/rant/:id/file_selected', to: 'application#show_file', as: "file"
   get '/search', to: 'application#search', as: "search"
 
+  get '/search/blacklist', to: 'blacklists#search', as: "blacklist_search"
+  get '/search/dumpster', to: 'dumpsters#search', as: "dumpster_search"
+
   get '/terms_of_use', to: 'application#terms_of_use', as: "terms_of_use"
   get '/terms_of_service', to: 'application#terms_of_service', as: "terms_of_service"
 

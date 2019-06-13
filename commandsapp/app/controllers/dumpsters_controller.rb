@@ -78,6 +78,22 @@ class DumpstersController < ApplicationController
     end
   end
 
+  def search
+
+    if params[:title]
+      post_list = list_posts
+      search_list = []
+      post_list.each do |post|
+        if post[:post]["title"].include? params[:title]
+          search_list.push(post)
+        end
+      end
+      @dumpsters = search_list
+    else  
+      @dumpsters = list_posts
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_dumpster
