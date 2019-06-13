@@ -76,6 +76,7 @@ class ApplicationController < ActionController::Base
     post_info[:votes] = post_votes
     post_info[:user] = User.find(post.user.id)
     post_info[:profile] = Profile.where(user: post.user).first
+    post_info[:in_geofence] = if post.country == in_geofence then true else false end
     #post_info[:in_geofence] = is_in_geofence?.include?(post.id)
     @post = post_info
     #render json: {post: @post}

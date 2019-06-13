@@ -45,4 +45,4 @@ votes = Vote.create([{user: users.first, post: posts.first, value: 1},
 	{user: users.first, post: posts.last, value: -1},
 	{user: users.last, post: posts.first, value: 1},
 	{user: users.last, post: posts.last, value: 1}])
-superadmin = Administrator.create([{superadmin: 1, geofence: geofence.first, user: users.first}])
+superadmin = Administrator.create([{superadmin: 1, geofence: Geofence.where(location: "Argentina").first, user: users.first}])
