@@ -187,7 +187,9 @@
             </li>
           <% end %>
           
-          <li class="list-inline-item"><button class="btn btn-secondary">Change password</button></li>
+          <%= link_to edit_user_path(@user["id"]) do %>
+            <li class="list-inline-item"><button class="btn btn-secondary">Edit user</button></li>
+          <% end %>
           <li class="list-inline-item">
             <%= link_to destroy_selected_user_path, method: :delete do %>
               <button class="btn btn-danger">Delete user</button>
