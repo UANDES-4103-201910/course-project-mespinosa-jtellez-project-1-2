@@ -32,6 +32,13 @@
             </tr></table>
           </div>
         </td>
+        <td width="5%" id="votes">
+            <% if can? :manage, :all %>
+              <%= link_to edit_administrator_path(administrator["id"]) do %>
+                <i class="fas fa-edit"></i><br>
+              <% end %>
+            <% end %>
+          </td>
         <% end %>
       </tr></table>
     <% end %>

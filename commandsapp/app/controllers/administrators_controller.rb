@@ -56,9 +56,14 @@ class AdministratorsController < ApplicationController
   # PATCH/PUT /administrators/1
   # PATCH/PUT /administrators/1.json
   def update
+    params = administrator_params
+    geofence = Geofence.find(params[:geofence])
+    params[:geofence] = geofence
+
     respond_to do |format|
-      if @administrator.update(administrator_params)
-        format.html { redirect_to @administrator, notice: 'Administrator was successfully updated.' }
+      if @administrator.update(params)
+
+        format.html { redirect_to administrators_path, notice: 'Administrator was successfully updated.' }
         format.json { render :show, status: :ok, location: @administrator }
       else
         format.html { render :edit }
