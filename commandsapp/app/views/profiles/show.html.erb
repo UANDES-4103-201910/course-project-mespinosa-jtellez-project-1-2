@@ -179,7 +179,7 @@
           </li>
         </ul>
         <ul class="list-inline">
-          <% if @user[:user]["role"] == 1 %>
+          <% if @user[:user]["role"] == 1 || @user[:user]["role"] == nil %>
             <li class="list-inline-item">
               <%= link_to create_admin_path, method: :post do %>
                 <button class="btn btn-secondary">Make Admin</button>

@@ -81,22 +81,22 @@ class UsersController < ApplicationController
   def destroy_selected_user
     @user = User.find(params[:id])
     @posts = Post.where(user: @user)
-    if not @posts.nil?
+    if @posts.present?
       @posts.each do |post|
         comments = Comment.where(post: post)
-        if not comments.nil?
+        if comments.present?
           comments.each do |comment|
             comment.destroy
           end
         end
         votes = Vote.where(post: post)
-        if not votes.nil?
+        if votes.present?
           votes.each do |vote|
             vote.destroy
           end
         end
         dumpsters = Dumpster.where(post: post)
-        if not dumpsters.nil?
+        if dumpsters.present?
           dumpsters.each do |dumpster|
             dumpster.destroy
           end
@@ -105,25 +105,25 @@ class UsersController < ApplicationController
       end
     end
     @administrator = Administrator.where(user: @user)
-    if not @administrator.nil?
+    if @administrator.present?
       @administrator.first.destroy
     end
     @comments = Comment.where(user: @user)
-    if not @comments.nil?
+    if @comments.present?
       @comments.each do |comment|
         comment.destroy
       end
     end
     @votes = Vote.where(user: @user)
-    if not @votes.nil?
+    if @votes.present?
       @votes.each do |vote|
         vote.destroy
       end
     end
     @profile = Profile.find(params[:id])
     @profile.destroy
-    @blacklist.where(user: @user)
-    if not @blacklist.nil?
+    @blacklist = Blacklist.where(user: @user)
+    if @blacklist.present?
       @blacklist.destroy
     end
     @user.destroy
