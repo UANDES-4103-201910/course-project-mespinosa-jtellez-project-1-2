@@ -24,11 +24,16 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    comment = Comment.new
+    comment = comment.attributes
+    comment[:content] = comment_params[:content]
+    comment[:user] = User.find(session["warden.user.user.key"][0][0])
+    comment[:post] = Post.find(params[:comment]["post"])
+    @comment = Comment.new(comment)
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
+        format.html { redirect_to rant_path(params[:comment]["post"]), notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new }

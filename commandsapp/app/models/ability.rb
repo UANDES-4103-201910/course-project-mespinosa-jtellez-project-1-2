@@ -13,6 +13,7 @@ class Ability
         else
             can :manage, :all
             cannot :manage, Administrator
+            cannot :manage, Geofence
         end
     elsif not user.nil? 
         can :read, :all

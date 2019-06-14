@@ -133,6 +133,7 @@
     
     <%= form_with model: Comment.new do |form| %>
       <%= form.text_area :content, rows: 3, class: 'form-text-field', id: 'new-comment-content', placeholder: 'Comment this post...' %>
+      <%= form.hidden_field :post, id: "lat-field", value: @post["id"] %>
       <%= form.submit 'Send', class: 'btn btn-outline-info' %>
     <% end %>
     <hr>  
